@@ -1,0 +1,225 @@
+:root{
+  --primary:#0d6efd;        /* Royal blue for header/nav */
+  --secondary:#6c757d;      /* Gray for secondary elements */
+  --accent:#20c997;          /* Fresh green for primary buttons */
+  --accent-hover:#198754;    /* Darker green on hover */
+  --danger:#e63946;          /* Red for clear button */
+  --danger-hover:#c1121f;    /* Darker red on hover */
+  --cta:#ff922b;             /* Orange for checkout */
+  --cta-hover:#fd7e14;       /* Darker orange on hover */
+  --bg:#f9fafb;              /* Page background */
+  --card-bg:#ffffff;          /* Card background */
+  --text-color:#1c1c1c;      /* Main text color */
+  --text-light:#fff;          /* Light text for dark backgrounds */
+  --footer-bg:#212529;        /* Dark footer */
+  --footer-text:#f8f9fa;      /* Footer text color */
+  --input-bg:#fff;            /* Input background */
+  --input-border:#ced4da;     /* Input border */
+  --table-header:#0d6efd;     /* Table header blue */
+  --table-hover:#e7f1ff;      /* Table row hover */
+}
+
+/* Body & Layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+}
+
+main.container {
+  flex: 1;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+/* Header */
+header {
+  background: var(--primary);
+  color: var(--text-light);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+nav a {
+  color: var(--text-light);
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
+nav a:hover {
+  color: #d4e9ff; /* Lighter blue */
+}
+
+/* Horizontal Product Grid */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  text-align: center;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.card h3 {
+  margin: 8px 0 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.card p {
+  margin: 5px 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+.card .btn {
+  margin-top: auto;
+}
+
+/* Buttons */
+.btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: var(--text-light);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.btn:hover {
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent));
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* Clear Cart Button */
+.btn.clear {
+  background: linear-gradient(135deg, var(--danger), var(--danger-hover));
+}
+.btn.clear:hover {
+  background: linear-gradient(135deg, var(--danger-hover), var(--danger));
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* Checkout Button */
+.btn.checkout {
+  background: linear-gradient(135deg, var(--cta), var(--cta-hover));
+}
+.btn.checkout:hover {
+  background: linear-gradient(135deg, var(--cta-hover), var(--cta));
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: var(--card-bg);
+  border-radius: 5px;
+  overflow: hidden;
+}
+table th, table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+table th {
+  background: var(--table-header);
+  color: var(--text-light);
+}
+table tr:hover {
+  background: var(--table-hover);
+}
+
+/* Forms */
+input[type=text] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid var(--input-border);
+  font-size: 16px;
+  background: var(--input-bg);
+  color: var(--text-color);
+}
+
+/* Lists */
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+ul li {
+  margin: 5px 0;
+}
+
+/* Footer */
+footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .card {
+    width: 45%;  /* 2 per row on tablet */
+  }
+}
+
+@media(max-width:480px){
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+  nav a {
+    margin: 5px;
+  }
+  .card {
+    width: 90%;  /* 1 per row on mobile */
+  }
+}

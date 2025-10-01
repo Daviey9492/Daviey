@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fashion Store</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+  <h1>Fashion Store</h1>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/cart">Cart ({{ session.get('cart')|length if session.get('cart') else 0 }})</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <!-- Products Section -->
+  <h2>Our Products</h2>
+  <div class="grid">
+    {% for product in products %}
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/' + product[1].replace(' ', '_').lower() + '.jpg') }}" alt="{{ product[1] }}">
+      <h3>{{ product[1] }}</h3>
+      <p>KES {{ product[2] }}</p>
+      <a href="/add_to_cart/{{ product[0] }}" class="btn">Add to Cart</a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Upcoming Sale Offers Section -->
+  <h2>Upcoming Sale Offers</h2>
+  <table>
+    <tr><th>Offer</th><th>Item</th><th>Discount</th><th>Valid Until</th></tr>
+    <tr><td>Sale 1</td><td>Red Dress</td><td>20%</td><td>31 Oct 2025</td></tr>
+    <tr><td>Sale 2</td><td>Blue Shirt</td><td>15%</td><td>30 Nov 2025</td></tr>
+  </table>
+
+  <!-- Benefits Section -->
+  <h2>Benefits of Shopping With Us</h2>
+  <ul>
+    <li>High-quality products</li>
+    <li>Fast delivery</li>
+    <li>Easy returns</li>
+    <li>Affordable prices</li>
+  </ul>
+
+</main>
+
+<footer>
+  &copy; 2025 Fashion Store
+</footer>
+
+</body>
+</html>
