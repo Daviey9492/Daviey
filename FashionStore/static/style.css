@@ -53,6 +53,10 @@ header {
 header h1 {
   margin: 0;
   font-size: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
 }
 nav a {
   color: var(--text-light);
@@ -60,6 +64,7 @@ nav a {
   text-decoration: none;
   font-weight: bold;
   transition: 0.2s;
+  white-space: nowrap;
 }
 nav a:hover {
   color: #d4e9ff; /* Lighter blue */
@@ -215,27 +220,30 @@ footer {
 
 /* Mobile / small devices */
 @media (max-width: 480px) {
-  /* Header stacks vertically */
+  /* Header stays in one line */
   header {
-    flex-direction: column;       /* Stack title and nav vertically */
-    align-items: center;          /* Center everything */
-    text-align: center;
-    padding: 10px 15px;
-    gap: 8px;                     /* Space between title and nav */
+    flex-direction: row;           /* Keep header horizontal */
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+  }
+
+  header h1 {
+    font-size: 18px;              /* Smaller title */
+    max-width: 50%;
   }
 
   nav {
     display: flex;
-    flex-direction: column;       /* Stack nav links vertically */
-    align-items: center;          /* Center links */
-    width: 100%;                  /* Full width for links */
-    gap: 5px;                     /* Space between links */
-    margin: 0;                    /* Remove any existing margin */
+    flex-wrap: nowrap;             /* Prevent wrapping nav links */
+    gap: 8px;
+    overflow-x: auto;              /* Scroll if too long */
   }
 
   nav a {
-    margin: 0;                    /* No horizontal margin */
-    font-size: 14px;              /* Slightly smaller for small screens */
+    font-size: 14px;               /* Smaller links */
+    margin-left: 0;
+    white-space: nowrap;
   }
 
   /* Main content adjustments */
@@ -248,23 +256,23 @@ footer {
   .grid {
     display: flex;
     flex-direction: column;
-    align-items: center;  /* center cards */
+    align-items: center;  
     gap: 12px;
   }
 
   .card {
-    width: 100%;         /* full width */
-    max-width: 300px;    /* prevent stretching too wide */
-    margin: 0;           /* no side margin */
+    width: 100%;        
+    max-width: 300px;   
+    margin: 0;          
   }
 
   .card img {
     width: 100%;
-    height: auto;        /* maintain aspect ratio */
+    height: auto;       
   }
 
   input[type=text], .btn {
-    width: 100%;         /* full-width inputs and buttons */
+    width: 100%;         
   }
 
   table, table th, table td {
