@@ -230,24 +230,27 @@ footer {
     margin: 10px auto;
   }
 
+  /* Stack cards vertically on small screens */
   .grid {
-    flex-direction: column; /* Stack cards vertically */
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* center cards */
     gap: 12px;
   }
 
   .card {
-    width: 100%;      /* Full width cards on phone */
-    max-width: 300px; /* Avoid stretching too wide */
-    margin: 0 auto;   /* Center card horizontally */
+    width: 100%;         /* full width */
+    max-width: 300px;    /* prevent stretching too wide */
+    margin: 0;           /* no side margin */
   }
 
   .card img {
-    height: auto;     /* Keep image aspect ratio */
+    width: 100%;
+    height: auto;        /* maintain aspect ratio */
   }
 
   input[type=text], .btn {
-    width: 100%;      /* Full-width inputs and buttons */
+    width: 100%;         /* full-width inputs and buttons */
   }
 
   table, table th, table td {
