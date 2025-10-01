@@ -56,7 +56,6 @@ header h1 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 50%;
 }
 nav a {
   color: var(--text-light);
@@ -225,25 +224,31 @@ footer {
     flex-direction: row;           /* Keep header horizontal */
     justify-content: space-between;
     align-items: center;
-    padding: 8px 10px;
+    padding: 5px 10px;
   }
 
   header h1 {
-    font-size: 18px;              /* Smaller title */
+    font-size: 16px;               /* Smaller title */
+    flex-shrink: 1;                /* Allow title to shrink */
+    margin-right: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;       /* Truncate if too long */
     max-width: 50%;
   }
 
   nav {
     display: flex;
-    flex-wrap: nowrap;             /* Prevent wrapping nav links */
-    gap: 8px;
-    overflow-x: auto;              /* Scroll if too long */
+    gap: 5px;
+    flex-shrink: 1;                /* Allow nav to shrink */
+    flex-wrap: nowrap;              /* Keep links in one line */
+    overflow-x: auto;               /* Scroll if needed */
   }
 
   nav a {
-    font-size: 14px;               /* Smaller links */
-    margin-left: 0;
+    font-size: 14px;
     white-space: nowrap;
+    margin-left: 0;
   }
 
   /* Main content adjustments */
