@@ -215,22 +215,35 @@ footer {
 
 /* Mobile / small devices */
 @media (max-width: 480px) {
+  /* Header fix */
   header {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column;       /* Stack title and nav */
+    align-items: center;          /* Center everything */
     text-align: center;
+    padding: 10px 15px;
+    gap: 8px;                     /* Space between title and nav */
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;              /* Allow links to wrap */
+    justify-content: center;      /* Center links horizontally */
+    gap: 5px 10px;                /* Vertical + horizontal spacing */
+    width: 100%;                  /* Full width if needed */
   }
 
   nav a {
-    margin: 5px 8px;
+    margin: 0;                    /* Remove fixed margin */
+    font-size: 14px;              /* Slightly smaller links */
   }
 
+  /* Main content */
   main.container {
     padding: 0 10px;
     margin: 10px auto;
   }
 
-  /* Stack cards vertically on small screens */
+  /* Stack cards vertically */
   .grid {
     display: flex;
     flex-direction: column;
