@@ -205,21 +205,53 @@ footer {
 }
 
 /* Responsive */
+
+/* Tablet */
 @media(max-width:768px){
   .card {
     width: 45%;  /* 2 per row on tablet */
   }
 }
 
-@media(max-width:480px){
+/* Mobile / small devices */
+@media (max-width: 480px) {
   header {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
+
   nav a {
-    margin: 5px;
+    margin: 5px 8px;
   }
+
+  main.container {
+    padding: 0 10px;
+    margin: 10px auto;
+  }
+
+  .grid {
+    flex-direction: column; /* Stack cards vertically */
+    justify-content: center;
+    gap: 12px;
+  }
+
   .card {
-    width: 90%;  /* 1 per row on mobile */
+    width: 100%;      /* Full width cards on phone */
+    max-width: 300px; /* Avoid stretching too wide */
+    margin: 0 auto;   /* Center card horizontally */
+  }
+
+  .card img {
+    height: auto;     /* Keep image aspect ratio */
+  }
+
+  input[type=text], .btn {
+    width: 100%;      /* Full-width inputs and buttons */
+  }
+
+  table, table th, table td {
+    font-size: 14px;
+    padding: 8px 10px;
   }
 }
