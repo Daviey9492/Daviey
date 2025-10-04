@@ -1,16 +1,16 @@
-/* 🌸 TRENDY FASHION HUB — ELEGANT MODERN THEME */
+/* 🌸 TRENDY FASHION HUB — ELEGANT & PROFESSIONAL THEME */
 :root {
   --primary: #6A1B9A;      /* Deep violet for elegance */
-  --accent: #8D6E63;       /* Muted brown for warmth */
+  --accent: #8D6E63;       /* Warm muted brown */
   --text: #333;
   --bg: #fff;
   --card: #fafafa;
   --light: #f3f3f3;
   --highlight: #e0f7fa;
-  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow: rgba(0, 0, 0, 0.12);
 }
 
-/* 🌐 GLOBAL RESET + BASE */
+/* 🌐 RESET & BASE */
 * {
   margin: 0;
   padding: 0;
@@ -22,10 +22,10 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  padding-bottom: 80px;
+  padding-bottom: 70px;
 }
 
-/* 🟣 HEADER — RESPONSIVE & CLEAN */
+/* 🟣 HEADER */
 header {
   background: var(--primary);
   color: #fff;
@@ -36,71 +36,78 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  flex-wrap: wrap; /* allows wrapping on small screens */
+  flex-wrap: wrap;
 }
 
 header h1 {
   font-size: 1.4rem;
-  flex: 1;
-  text-align: left;
-  white-space: nowrap;
+  font-weight: 600;
 }
 
 nav {
   display: flex;
-  gap: 15px;
+  gap: 20px;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s;
+  transition: 0.3s;
 }
 
 nav a:hover {
   color: var(--highlight);
 }
 
-/* 🧾 PRODUCT SECTION EXAMPLE */
+/* 🧾 PRODUCT GRID (CART AREA) */
 .products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 30px 15px;
+  max-width: 1200px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  padding: 0 15px;
 }
 
 .product-card {
   background: var(--card);
-  box-shadow: 0 2px 5px var(--shadow);
+  box-shadow: 0 4px 8px var(--shadow);
   border-radius: 10px;
-  width: 220px;
-  text-align: center;
-  padding: 15px;
-  transition: transform 0.3s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px var(--shadow);
 }
 
 .product-card img {
   width: 100%;
-  height: 220px;
+  height: 250px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
 }
 
-.product-card h3 {
+.product-info {
+  padding: 15px;
+  text-align: center;
+}
+
+.product-info h3 {
   font-size: 1.1rem;
   margin-bottom: 5px;
 }
 
-.product-card p {
-  font-size: 0.9rem;
+.product-info p {
+  font-size: 0.95rem;
   color: #666;
   margin-bottom: 10px;
 }
 
-.product-card button {
+.product-info button {
   background: var(--primary);
   color: #fff;
   border: none;
@@ -111,32 +118,30 @@ nav a:hover {
   transition: background 0.3s;
 }
 
-.product-card button:hover {
+.product-info button:hover {
   background: var(--accent);
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
 }
 
 /* 📊 SALE TABLE */
 .sale-table {
-  max-width: 800px;
-  margin: 30px auto;
+  max-width: 900px;
+  margin: 50px auto;
   border-collapse: collapse;
   width: 90%;
+  font-size: 0.95rem;
 }
 
 .sale-table th,
 .sale-table td {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 12px;
   text-align: center;
 }
 
 .sale-table th {
   background: var(--primary);
   color: #fff;
+  font-weight: 600;
 }
 
 .sale-table tr:nth-child(even) {
@@ -148,40 +153,42 @@ footer {
   background: var(--primary);
   color: #fff;
   text-align: center;
-  padding: 10px 0;
-  font-size: 0.9rem;
+  padding: 8px 0;
+  font-size: 0.85rem;
   position: fixed;
   bottom: 0;
   width: 100%;
 }
 
-/* 📱 MOBILE RESPONSIVENESS */
-@media (max-width: 600px) {
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
   header {
     flex-direction: column;
     align-items: flex-start;
     padding: 10px 15px;
   }
 
-  header h1 {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
+  nav {
+    margin-top: 8px;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
-  nav {
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 10px;
+  .product-card img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 500px) {
+  header h1 {
+    font-size: 1.2rem;
   }
 
   nav a {
-    display: inline-block;
-    padding: 6px 0;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
-  .product-card {
-    width: 100%;
-    max-width: 300px;
+  .product-info h3 {
+    font-size: 1rem;
   }
 }
