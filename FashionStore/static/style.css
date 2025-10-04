@@ -10,7 +10,7 @@
   --shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* GLOBAL RESET + BASE */
+/* 🌐 GLOBAL RESET + BASE */
 * {
   margin: 0;
   padding: 0;
@@ -25,163 +25,113 @@ body {
   padding-bottom: 80px;
 }
 
-/* 🟣 HEADER */
+/* 🟣 HEADER — RESPONSIVE & CLEAN */
 header {
   background: var(--primary);
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 28px;
+  padding: 12px 20px;
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 3px 10px var(--shadow);
+  z-index: 1000;
+  flex-wrap: wrap; /* allows wrapping on small screens */
 }
 
 header h1 {
-  font-size: 1.8em;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 1.4rem;
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+nav {
+  display: flex;
+  gap: 15px;
 }
 
 nav a {
   color: #fff;
-  margin-left: 18px;
   text-decoration: none;
   font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 5px;
-  transition: 0.3s ease;
+  transition: color 0.3s;
 }
 
 nav a:hover {
-  background: rgba(255, 255, 255, 0.25);
+  color: var(--highlight);
 }
 
-/* 🩵 MAIN CONTAINER */
-main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-/* 🗂 CATEGORY TABS */
-.tabs {
+/* 🧾 PRODUCT SECTION EXAMPLE */
+.products {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 30px;
-}
-
-.tab-button {
-  border: none;
-  background: var(--light);
-  color: var(--text);
-  font-size: 1em;
-  padding: 10px 20px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.tab-button:hover,
-.tab-button.active {
-  background: var(--primary);
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-.tab-button.active::before {
-  content: "• ";
-  color: var(--accent);
-}
-
-/* 🛍 PRODUCT GRID */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 25px;
+  gap: 20px;
+  padding: 30px 15px;
 }
 
 .product-card {
   background: var(--card);
+  box-shadow: 0 2px 5px var(--shadow);
   border-radius: 10px;
-  box-shadow: 0 4px 10px var(--shadow);
-  transition: all 0.3s ease;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-}
-
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  width: 220px;
+  text-align: center;
+  padding: 15px;
+  transition: transform 0.3s;
 }
 
 .product-card img {
   width: 100%;
-  height: 260px;
+  height: 220px;
   object-fit: cover;
   border-radius: 8px;
-  transition: transform 0.3s ease;
-}
-
-.product-card:hover img {
-  transform: scale(1.03);
+  margin-bottom: 10px;
 }
 
 .product-card h3 {
-  font-size: 1.1em;
-  margin: 10px 0 4px;
-  text-align: center;
-  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
 }
 
-.price {
-  color: var(--accent);
-  font-weight: 600;
-  text-align: center;
+.product-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
 }
 
-/* 🛒 BUTTONS */
-.button {
-  display: block;
-  text-align: center;
-  margin: 12px auto;
-  background: var(--accent);
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95em;
-  transition: 0.3s;
-  width: fit-content;
-}
-
-.button:hover {
+.product-card button {
   background: var(--primary);
-  transform: translateY(-2px);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
 }
 
-/* 🪩 SALES TABLE */
-#sales {
-  text-align: center;
-  margin-top: 60px;
+.product-card button:hover {
+  background: var(--accent);
 }
 
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* 📊 SALE TABLE */
 .sale-table {
-  width: 90%;
-  margin: 20px auto;
+  max-width: 800px;
+  margin: 30px auto;
   border-collapse: collapse;
-  box-shadow: 0 4px 10px var(--shadow);
+  width: 90%;
 }
 
-.sale-table th, .sale-table td {
-  padding: 12px 15px;
+.sale-table th,
+.sale-table td {
   border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
 }
 
 .sale-table th {
@@ -190,76 +140,48 @@ main {
 }
 
 .sale-table tr:nth-child(even) {
-  background: #fafafa;
+  background: var(--light);
 }
 
-.sale-table tr:hover {
-  background: var(--highlight);
-}
-
-/* 🌿 BENEFITS */
-#benefits {
-  text-align: center;
-  margin-top: 70px;
-}
-
-.benefits-list p {
-  background: #f1f8e9;
-  padding: 15px;
-  margin: 15px auto;
-  max-width: 800px;
-  border-left: 5px solid var(--primary);
-  border-radius: 6px;
-  text-align: left;
-  box-shadow: 0 2px 5px var(--shadow);
-}
-
-/* ⚫ FOOTER */
+/* 🦶 FOOTER */
 footer {
-  background: var(--text);
+  background: var(--primary);
   color: #fff;
   text-align: center;
-  padding: 14px 0;
+  padding: 10px 0;
+  font-size: 0.9rem;
   position: fixed;
   bottom: 0;
   width: 100%;
-  font-size: 0.9em;
-  letter-spacing: 0.3px;
 }
 
-/* 📱 RESPONSIVE */
-@media (max-width: 768px) {
+/* 📱 MOBILE RESPONSIVENESS */
+@media (max-width: 600px) {
   header {
     flex-direction: column;
-    text-align: center;
-    padding: 12px 0;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
   }
 
   nav {
-    margin-top: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
-  .product-card img {
-    height: 200px;
+  nav a {
+    display: inline-block;
+    padding: 6px 0;
+    font-size: 0.95rem;
   }
 
-  .tabs {
-    flex-direction: column;
-    align-items: center;
+  .product-card {
+    width: 100%;
+    max-width: 300px;
   }
-}
-
-/* ✨ VISUAL DETAILS */
-.product-card::after {
-  content: "✨";
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.1em;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.product-card:hover::after {
-  opacity: 1;
 }
