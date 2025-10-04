@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | Fashion Store</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding-bottom: 60px; }
+    header { background: #333; color: #fff; text-align: center; padding: 15px 0; }
+    nav a { color: #fff; margin: 0 12px; text-decoration: none; }
+    main { max-width: 900px; margin: 30px auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+    th { background: #fafafa; }
+    img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 10px; vertical-align: middle; }
+    input[type="number"] { width: 50px; padding: 5px; border: 1px solid #ccc; border-radius: 4px; text-align: center; }
+    button { border: none; border-radius: 4px; padding: 6px 10px; cursor: pointer; font-size: 0.9em; }
+    .btn-update { background: #007bff; color: #fff; }
+    .btn-remove { background: #dc3545; color: #fff; }
+    .checkout { text-align: right; border-top: 2px solid #eee; padding-top: 15px; margin-top: 20px; }
+    .checkout button { background: #28a745; color: #fff; padding: 10px 20px; border-radius: 5px; font-size: 1em; }
+    .checkout button:hover { background: #218838; }
+    footer { position: fixed; bottom: 0; width: 100%; background: #333; color: #fff; text-align: center; padding: 10px 0; font-size: 0.9em; }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Trendy Fashion Hub</h1>
+  <nav>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('index') }}#products">Shop</a>
+    <a href="{{ url_for('view_cart') }}">Cart 🛒</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Your Shopping Cart</h2>
+
+  {% if cart_items %}
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th><th>Price</th><th>Qty</th><th>Total</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart_items %}
+      <tr>
+        <td>
+          <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.item_name }}">
+          {{ item.item_name }}
+        </td>
+        <td>KSh {{ "{:,.2f}".format(item.unit_price) }}</td>
+        <td>
+          <form method="POST" action="{{ url_for('update_cart') }}">
+            <input type="hidden" name="item_id" value="{{ item.id }}">
+            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.current_stock }}">
+            <button type="submit" class="btn-update">✔</button>
+          </form>
+          {% if 0 < item.current_stock < 5 %}
+            <small style="color:orange;">Low stock!</small>
+          {% endif %}
+        </td>
+        <td>KSh {{ "{:,.2f}".format(item.total) }}</td>
+        <td>
+          <form method="POST" action="{{ url_for('update_cart') }}">
+            <input type="hidden" name="item_id" value="{{ item.id }}">
+            <input type="hidden" name="quantity" value="0">
+            <button type="submit" class="btn-remove">✖</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="checkout">
+    <p><strong>Total: KSh {{ "{:,.2f}".format(grand_total) }}</strong></p>
+    <form method="POST" action="{{ url_for('checkout') }}">
+      <button type="submit">Proceed to Checkout</button>
+    </form>
+  </div>
+
+  {% else %}
+    <p style="text-align:center; margin:60px 0;">Your cart is empty 🛍️</p>
+    <p style="text-align:center;"><a href="{{ url_for('index') }}">Back to Shop</a></p>
+  {% endif %}
+</main>
+
+<footer>
+  <p>&copy; 2025 Fashion Store. All rights reserved.</p>
+</footer>
+</body>
+</html>

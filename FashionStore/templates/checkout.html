@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Confirmation | Fashion Store</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding-bottom: 60px; }
+    header {
+      background: #333; color: #fff; text-align: center; padding: 15px 0;
+    }
+    nav a { color: #fff; margin: 0 12px; text-decoration: none; }
+    main {
+      max-width: 700px; margin: 60px auto; background: #fff;
+      padding: 40px; text-align: center; border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .message {
+      padding: 25px; border-radius: 8px; font-size: 1.1em;
+      border: 2px solid; margin-bottom: 20px;
+    }
+    .success {
+      background: #e6ffed; color: #28a745; border-color: #28a745;
+    }
+    .failure {
+      background: #ffe6e6; color: #dc3545; border-color: #dc3545;
+    }
+    h2 { margin-top: 0; font-size: 1.8em; }
+    .button {
+      display: inline-block; margin-top: 20px; padding: 10px 20px;
+      border-radius: 4px; color: #fff; text-decoration: none;
+    }
+    .btn-blue { background: #007bff; }
+    .btn-red { background: #dc3545; }
+    footer {
+      position: fixed; bottom: 0; width: 100%;
+      background: #333; color: #fff; text-align: center; padding: 10px 0;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Fashion Store</h1>
+  <nav>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('index') }}#products">Shop</a>
+    <a href="{{ url_for('view_cart') }}">Cart 🛒</a>
+    <a href="{{ url_for('inventory_report') }}" class="admin-link">Inventory 📊</a>
+  </nav>
+</header>
+
+<main>
+  <div class="message {{ 'success' if success else 'failure' }}">
+    {% if success %}
+      <h2>✅ Payment Successful</h2>
+      <p>Thank you for your purchase! Your order has been processed successfully.</p>
+      <a href="{{ url_for('index') }}" class="button btn-blue">Continue Shopping</a>
+    {% else %}
+      <h2>❌ Transaction Failed</h2>
+      <p>Sorry, some items in your cart are out of stock.</p>
+      <p>Please review your cart or explore more products.</p>
+      <a href="{{ url_for('index') }}#products" class="button btn-red">Back to Shop</a>
+    {% endif %}
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2025 Fashion Store. All rights reserved.</p>
+</footer>
+</body>
+</html>

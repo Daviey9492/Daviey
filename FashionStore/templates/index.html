@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fashion Store - CIS 221</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<header>
+  <h1>Fashion Store</h1>
+  <nav>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="#products">Shop</a>
+    <a href="{{ url_for('view_cart') }}">Cart 🛒</a>
+    <a href="#sales">Sales</a>
+    <a href="#benefits">Why Us?</a>
+    <a href="{{ url_for('add_stock') }}">Add Stock ➕</a>
+    <a href="{{ url_for('inventory_report') }}">Inventory 📊</a>
+  </nav>
+</header>
+
+<main>
+  <!-- PRODUCTS -->
+  <section id="products" class="showcase">
+    <h2>Our Fashion Collection</h2>
+
+    <!-- Category Tabs -->
+    <div id="category-tabs">
+      <button class="tab-button active" onclick="filterProducts(event, 'all')">All ✨</button>
+      <button class="tab-button" onclick="filterProducts(event, 'dresses')">Dresses</button>
+      <button class="tab-button" onclick="filterProducts(event, 'outerwear')">Outerwear</button>
+      <button class="tab-button" onclick="filterProducts(event, 'accessories')">Accessories</button>
+      <button class="tab-button" onclick="filterProducts(event, 'shoes')">Shoes</button>
+    </div>
+
+    <!-- SINGLE GRID (no repetition) -->
+    <div class="product-grid standard-grid" id="productGrid">
+      {% for id,img,name,price,category in [
+        [101,'placeholder_dress_1.jpg','Crimson Evening Gown','5,500','dresses'],
+        [102,'placeholder_dress_2.jpg','Floral Summer Maxi','3,500','dresses'],
+        [103,'placeholder_dress_3.jpg','Classic Black Dress','2,700','dresses'],
+        [104,'placeholder_dress_4.jpg','Sequined Cocktail','4,300','dresses'],
+        [201,'placeholder_coat_1.jpg','Classic Trench Coat','5,800','outerwear'],
+        [202,'placeholder_jacket_1.jpg','Vintage Denim Jacket','2,000','outerwear'],
+        [203,'placeholder_blazer_1.jpg','Plaid Wool Blazer','5,600','outerwear'],
+        [301,'placeholder_bag_1.jpg','Designer Leather Tote','2,500','accessories'],
+        [302,'placeholder_scarf_1.jpg','Hand-Printed Silk Scarf','1,500','accessories'],
+        [303,'placeholder_necklace_1.jpg','Layered Gold Necklace','4,000','accessories'],
+        [304,'placeholder_belt_1.jpg','Premium Leather Belt','4,500','accessories'],
+        [401,'placeholder_shoe_1.jpg','Stiletto High Heels','3,000','shoes'],
+        [402,'placeholder_shoe_2.jpg','Urban Canvas Sneakers','2,300','shoes']
+      ] %}
+      <div class="product-card" data-category="{{ category }}">
+        <img src="{{ url_for('static', filename=img) }}" alt="{{ name }}">
+        <h3>{{ name }}</h3>
+        <p class="price">KSh {{ price }}</p>
+        <a href="{{ url_for('product_details', id=id) }}" class="button">View Details</a>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- SALES -->
+  <section id="sales">
+    <h2>Upcoming Sales</h2>
+    <table class="sale-table">
+      <tr><th>Event</th><th>Dates</th><th>Discount</th><th>Category</th></tr>
+      <tr><td>Autumn Clearance</td><td>Oct 20–25</td><td>20–50%</td><td>All</td></tr>
+      <tr><td>Winter Warm-up</td><td>Nov 1–3</td><td>Up to 30%</td><td>Outerwear</td></tr>
+    </table>
+  </section>
+
+  <!-- BENEFITS -->
+  <section id="benefits">
+    <h2>Why Shop With Us?</h2>
+    <p><strong>Quality:</strong> Premium fabrics for long wear.</p>
+    <p><strong>Eco-Friendly:</strong> Sustainable materials.</p>
+    <p><strong>Free Returns:</strong> Hassle-free shopping.</p>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 Fashion Store | CIS 221</p>
+</footer>
+
+<script>
+  function filterProducts(evt, category) {
+    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+    evt.currentTarget.classList.add('active');
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.style.display = (category === 'all' || card.dataset.category === category) ? 'block' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

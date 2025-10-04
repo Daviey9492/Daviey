@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Stock | Fashion Admin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    main {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    label { display: block; margin: 12px 0 6px; font-weight: bold; }
+    select, input, button {
+      width: 100%; padding: 10px; border: 1px solid #ccc;
+      border-radius: 5px; box-sizing: border-box; font-size: 1em;
+    }
+    button {
+      background: #007bff; color: #fff; margin-top: 10px; border: none;
+      cursor: pointer; transition: 0.3s;
+    }
+    button:hover { background: #0056b3; }
+    .msg {
+      padding: 12px; border-radius: 5px; margin-bottom: 15px;
+      font-weight: bold; text-align: center;
+    }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Admin - Stock Management</h1>
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('inventory_report') }}">Inventory 📊</a>
+      <a href="{{ url_for('add_stock') }}">Add Stock ➕</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Add New Stock</h2>
+    <p>Update available units for an existing product below.</p>
+
+    {% if status_message %}
+      <div class="msg {% if '✅' in status_message %}success{% else %}error{% endif %}">
+        {{ status_message }}
+      </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('add_stock') }}">
+      <label for="item_id">Select Item</label>
+      <select id="item_id" name="item_id" required>
+        <option value="" disabled selected>-- Choose an Item --</option>
+        {% for item in items %}
+          <option value="{{ item.id }}">
+            {{ item.item_name }} — Current: {{ item.qty_initial_bought - item.qty_sold }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <label for="quantity">Quantity to Add</label>
+      <input type="number" id="quantity" name="quantity" min="1" required>
+
+      <button type="submit">Update Stock</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Fashion Store. All rights reserved.</p>
+  </footer>
+</body>
+</html>

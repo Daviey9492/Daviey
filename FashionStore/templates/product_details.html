@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ product.item_name if product else 'Product Not Found' }} - Trendy Fashion Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; }
+    header { background: #333; color: #fff; text-align: center; padding: 15px 0; }
+    nav a { color: #fff; margin: 0 12px; text-decoration: none; }
+    main { padding: 40px 20px; max-width: 1200px; margin: auto; }
+
+    .product-detail { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; background: #fff;
+      padding: 30px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+    .product-detail img { max-width: 480px; border-radius: 8px; }
+    .info { flex: 1; min-width: 280px; }
+    .info h2 { font-size: 2em; margin: 0 0 10px; color: #333; }
+    .price { font-size: 1.8em; color: #d9534f; margin-bottom: 15px; font-weight: bold; }
+    .stock { font-weight: bold; margin-bottom: 20px; }
+    .in { color: #28a745; } .out { color: #dc3545; }
+    .details { background: #f8f9fa; border-left: 5px solid #007bff; padding: 10px 15px; margin-bottom: 20px; }
+    .desc { color: #555; line-height: 1.6; }
+    form { margin-top: 20px; }
+    button {
+      background: #f0ad4e; color: #fff; padding: 12px 25px; border: none;
+      border-radius: 4px; cursor: pointer; font-size: 1.1em;
+    }
+    button:hover { background: #ec971f; }
+    .status {
+      text-align: center; padding: 12px; margin: 20px auto; max-width: 800px;
+      border-radius: 5px; font-weight: bold;
+    }
+    .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .not-found { text-align: center; padding: 80px; color: #777; }
+    footer { background: #333; color: #fff; text-align: center; padding: 10px 0; margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Fashion Store</h1>
+  <nav>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('index') }}#products">Shop</a>
+    <a href="{{ url_for('view_cart') }}">Cart 🛒</a>
+    <a href="{{ url_for('add_stock') }}">Add Stock ➕</a>
+    <a href="{{ url_for('inventory_report') }}">Inventory 📊</a>
+  </nav>
+</header>
+
+<main>
+  {% if status_message %}
+    <div class="status {{ 'success' if status_message.startswith('✅') else 'error' }}">
+      {{ status_message }}
+    </div>
+  {% endif %}
+
+  {% if product %}
+  <div class="product-detail">
+    <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.item_name }}">
+    <div class="info">
+      <h2>{{ product.item_name }}</h2>
+      <p class="price">KSh {{ "{:,.2f}".format(product.unit_price) }}</p>
+
+      <p class="stock {{ 'in' if product.current_stock > 0 else 'out' }}">
+        {% if product.current_stock > 0 %}
+          In Stock: {{ product.current_stock }} units
+        {% else %}
+          SOLD OUT
+        {% endif %}
+      </p>
+
+      <div class="details">
+        <p><strong>Color:</strong> {{ product.color or 'N/A' }}</p>
+        <p><strong>SKU:</strong> {{ product.id }}</p>
+      </div>
+
+      <p class="desc">{{ product.description }}</p>
+
+      {% if product.current_stock > 0 %}
+      <form method="POST" action="{{ url_for('add_to_cart') }}">
+        <input type="hidden" name="item_id" value="{{ product.id }}">
+        <button type="submit">Add to Cart</button>
+      </form>
+      {% else %}
+      <p style="color:red; font-weight:bold;">Out of stock. Please check later!</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% else %}
+  <div class="not-found">
+    <p>Sorry, the product you’re looking for wasn’t found.</p>
+    <p><a href="{{ url_for('index') }}">Back to Shop</a></p>
+  </div>
+  {% endif %}
+</main>
+
+<footer>
+  <p>&copy; 2025 Fashion Store. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

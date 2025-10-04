@@ -1,0 +1,265 @@
+/* 🌸 TRENDY FASHION HUB — ELEGANT MODERN THEME */
+:root {
+  --primary: #6A1B9A;      /* Deep violet for elegance */
+  --accent: #8D6E63;       /* Muted brown for warmth */
+  --text: #333;
+  --bg: #fff;
+  --card: #fafafa;
+  --light: #f3f3f3;
+  --highlight: #e0f7fa;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* GLOBAL RESET + BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding-bottom: 80px;
+}
+
+/* 🟣 HEADER */
+header {
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 28px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 3px 10px var(--shadow);
+}
+
+header h1 {
+  font-size: 1.8em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+nav a {
+  color: #fff;
+  margin-left: 18px;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: 0.3s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* 🩵 MAIN CONTAINER */
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* 🗂 CATEGORY TABS */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.tab-button {
+  border: none;
+  background: var(--light);
+  color: var(--text);
+  font-size: 1em;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab-button:hover,
+.tab-button.active {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.tab-button.active::before {
+  content: "• ";
+  color: var(--accent);
+}
+
+/* 🛍 PRODUCT GRID */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 25px;
+}
+
+.product-card {
+  background: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px var(--shadow);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.product-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.03);
+}
+
+.product-card h3 {
+  font-size: 1.1em;
+  margin: 10px 0 4px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.price {
+  color: var(--accent);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* 🛒 BUTTONS */
+.button {
+  display: block;
+  text-align: center;
+  margin: 12px auto;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95em;
+  transition: 0.3s;
+  width: fit-content;
+}
+
+.button:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* 🪩 SALES TABLE */
+#sales {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.sale-table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 0 4px 10px var(--shadow);
+}
+
+.sale-table th, .sale-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.sale-table th {
+  background: var(--primary);
+  color: #fff;
+}
+
+.sale-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.sale-table tr:hover {
+  background: var(--highlight);
+}
+
+/* 🌿 BENEFITS */
+#benefits {
+  text-align: center;
+  margin-top: 70px;
+}
+
+.benefits-list p {
+  background: #f1f8e9;
+  padding: 15px;
+  margin: 15px auto;
+  max-width: 800px;
+  border-left: 5px solid var(--primary);
+  border-radius: 6px;
+  text-align: left;
+  box-shadow: 0 2px 5px var(--shadow);
+}
+
+/* ⚫ FOOTER */
+footer {
+  background: var(--text);
+  color: #fff;
+  text-align: center;
+  padding: 14px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9em;
+  letter-spacing: 0.3px;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  nav {
+    margin-top: 10px;
+  }
+
+  .product-card img {
+    height: 200px;
+  }
+
+  .tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* ✨ VISUAL DETAILS */
+.product-card::after {
+  content: "✨";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.1em;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.product-card:hover::after {
+  opacity: 1;
+}
