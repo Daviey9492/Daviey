@@ -43,13 +43,19 @@
           </td>
           <td data-label="Unit Price">KSh {{ "{:,.2f}".format(item.unit_price) }}</td>
           <td data-label="Quantity">
-            <form method="POST" action="{{ url_for('update_cart') }}" class="qty-form">
+            <form method="POST" action="{{ url_for('update_cart') }}" class="qty-form-edit">
               <input type="hidden" name="item_id" value="{{ item.id }}">
-              <input type="hidden" name="quantity" value="{{ item.quantity }}">
-              <div class="quantity-control">
-                  <button type="submit" name="action" value="decrease" class="qty-btn" aria-label="Decrease quantity">-</button>
-                  <input type="number" value="{{ item.quantity }}" min="1" max="{{ item.current_stock }}" class="qty-input" readonly>
-                  <button type="submit" name="action" value="increase" class="qty-btn" aria-label="Increase quantity">+</button>
+              <div class="quantity-edit-control">
+                  <input 
+                      type="number" 
+                      name="quantity" 
+                      value="{{ item.quantity }}" 
+                      min="1" 
+                      max="{{ item.current_stock }}" 
+                      class="qty-input-manual"
+                      aria-label="Change quantity"
+                  >
+                  <button type="submit" name="action" value="manual_update" class="btn-edit-qty">Edit</button>
               </div>
             </form>
             {% if 0 < item.current_stock < 5 %}
@@ -60,6 +66,7 @@
           <td data-label="Remove">
             <form method="POST" action="{{ url_for('update_cart') }}">
               <input type="hidden" name="item_id" value="{{ item.id }}">
+              <input type="hidden" name="quantity" value="0">
               <button type="submit" name="action" value="remove" class="remove-btn" aria-label="Remove item">✖</button>
             </form>
           </td>
