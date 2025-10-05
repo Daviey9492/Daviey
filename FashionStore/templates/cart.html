@@ -33,6 +33,7 @@
         </tr>
       </thead>
       <tbody>
+        {% set item_count = namespace(total=0) %}
         {% for item in cart_items %}
         <tr>
           <td class="cart-item-detail" data-label="Item">
@@ -71,15 +72,24 @@
             </form>
           </td>
         </tr>
+        {% set item_count.total = item_count.total + item.quantity %}
         {% endfor %}
       </tbody>
     </table>
   </div>
 
   <div class="cart-summary">
-    <div><span>Subtotal:</span><span class="price-value">KSh {{ "{:,.2f}".format(grand_total) }}</span></div>
-    <div><span>Shipping:</span><span class="price-value">KSh 129.00</span></div>
-    <div class="grand-total"><span>Grand Total:</span><span class="price-value">KSh {{ "{:,.2f}".format(grand_total) }}</span></div>
+    <div><span>Subtotal:</span><span class="price-value">KSh {{ "{:,.2f}".format(subtotal) }}</span></div>
+    
+    {% set shipping_fee_per_item = 129.00 %}
+    {% set total_shipping_cost = item_count.total * shipping_fee_per_item %}
+    
+    <div><span>Shipping ({{ item_count.total }} items @ KSh 129.00):</span><span class="price-value">KSh {{ "{:,.2f}".format(total_shipping_cost) }}</span></div>
+    
+    {% set final_grand_total = subtotal + total_shipping_cost %}
+    
+    <div class="grand-total"><span>Grand Total:</span><span class="price-value">KSh {{ "{:,.2f}".format(final_grand_total) }}</span></div>
+    
     <form method="POST" action="{{ url_for('checkout') }}">
       <button type="submit" class="button checkout-btn">Proceed to Checkout</button>
     </form>
@@ -96,4 +106,3 @@
 </footer>
 </body>
 </html>
-
