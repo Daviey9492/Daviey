@@ -10,8 +10,8 @@
     /* Base styles using Inter font and light background */
     body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; color: #333; }
     
-    /* FIX: Increased bottom padding to prevent overlap with footer */
-    .cart-container { max-width: 1000px; margin: 20px auto; padding: 20px 20px 40px 20px; background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); }
+    /* FIX APPLIED: Increased bottom padding to 80px to prevent overlap with footer */
+    .cart-container { max-width: 1000px; margin: 20px auto; padding: 20px 20px 80px 20px; background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); }
     
     /* Header & Navigation */
     header { background-color: #333; color: white; padding: 15px 0; text-align: center; }
@@ -63,14 +63,15 @@
         .cart-summary { max-width: 100%; }
     }
     
-    /* NEW: Footer styling for visibility and separation */
+    /* Footer styling for visibility and separation */
     footer {
         text-align: center;
         padding: 15px 0; 
         background-color: #333; 
         color: white;
         font-size: 0.85rem;
-        margin-top: 30px; /* Ensures space between cart content and footer */
+        /* Increased margin-top for better separation */
+        margin-top: 50px; 
     }
   </style>
 </head>
