@@ -78,7 +78,7 @@
 
   <div class="cart-summary">
     <div><span>Subtotal:</span><span class="price-value">KSh {{ "{:,.2f}".format(grand_total) }}</span></div>
-    <div><span>Shipping:</span><span class="price-value">KSh 0.00</span></div>
+    <div><span>Shipping:</span><span class="price-value">KSh 129.00</span></div>
     <div class="grand-total"><span>Grand Total:</span><span class="price-value">KSh {{ "{:,.2f}".format(grand_total) }}</span></div>
     <form method="POST" action="{{ url_for('checkout') }}">
       <button type="submit" class="button checkout-btn">Proceed to Checkout</button>
@@ -96,3 +96,4 @@
 </footer>
 </body>
 </html>
+
