@@ -236,6 +236,109 @@ main {
   font-size: 0.95rem;
 }
 
+/* 🛒 CART SECTION */
+.cart-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cart-container table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.cart-container th,
+.cart-container td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+.cart-container th {
+  background: #008060;
+  color: #fff;
+  font-weight: 500;
+}
+
+.cart-container img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+}
+
+.cart-item-name {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.cart-item-name span {
+  display: block;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.cart-container input[type="number"] {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.cart-container .btn-update,
+.cart-container .btn-remove {
+  padding: 6px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.cart-container .btn-update {
+  background: #007bff;
+}
+
+.cart-container .btn-remove {
+  background: #dc3545;
+}
+
+.checkout {
+  text-align: right;
+  padding-top: 15px;
+  margin-top: 15px;
+  border-top: 2px solid #eee;
+}
+
+.checkout button {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.checkout button:hover {
+  background: #218838;
+}
+
 /* ⚫ FOOTER */
 footer {
   background: var(--text);
@@ -267,7 +370,7 @@ footer {
   }
 
   .product-card img {
-    height: 220px; /* better fit on mobile */
+    height: 220px;
   }
 
   .sale-table th, .sale-table td {
@@ -277,6 +380,20 @@ footer {
 
   .benefits-list p {
     font-size: 0.9rem;
+  }
+
+  .cart-item-name {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .checkout {
+    text-align: center;
+  }
+
+  .checkout button {
+    width: 100%;
   }
 }
 
@@ -295,7 +412,7 @@ footer {
   }
 }
 
-/* ✨ Small visual detail on hover */
+/* ✨ Hover detail */
 .product-card::after {
   content: "✨";
   position: absolute;
