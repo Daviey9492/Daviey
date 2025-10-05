@@ -1,4 +1,4 @@
-/* 🌸 TRENDY FASHION HUB — PROFESSIONAL THEME */
+/* 🌸 TRENDY FASHION HUB — POLISHED PROFESSIONAL THEME */
 :root {
   --primary: #6A1B9A;
   --accent: #8D6E63;
@@ -7,10 +7,16 @@
   --card: #fff;
   --shadow: rgba(0, 0, 0, 0.12);
   --light: #f9f9f9;
+  --button-view: #009688;  /* Teal accent for View Details */
+  --button-view-hover: #00796b;
 }
 
 /* RESET */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: "Poppins", Arial, sans-serif;
@@ -18,6 +24,7 @@ body {
   color: var(--text);
   line-height: 1.6;
   padding-bottom: 80px;
+  overflow-x: hidden;
 }
 
 /* HEADER */
@@ -42,6 +49,7 @@ header h1 {
 nav {
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 nav a {
@@ -55,7 +63,7 @@ nav a:hover {
   color: #e0f7fa;
 }
 
-/* PRODUCT GRID FOR INDEX */
+/* 🛍 PRODUCT GRID */
 .products {
   max-width: 1200px;
   margin: 40px auto;
@@ -75,16 +83,18 @@ nav a:hover {
   flex-direction: column;
 }
 
-.product-card img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-}
-
 .product-card:hover {
   transform: translateY(-6px);
 }
 
+.product-card img {
+  width: 100%;
+  height: 280px;             /* uniform image height */
+  object-fit: cover;         /* fully visible inside */
+  display: block;
+}
+
+/* Info section inside card */
 .product-info {
   padding: 15px;
   text-align: center;
@@ -98,20 +108,39 @@ nav a:hover {
 .product-info p {
   color: #666;
   margin-bottom: 10px;
+  font-size: 0.95rem;
 }
 
-.product-info button {
-  background: var(--primary);
-  color: #fff;
-  border: none;
+/* Buttons */
+.product-info .btn {
+  display: inline-block;
+  margin-top: 8px;
   padding: 8px 14px;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
+  transition: 0.3s;
 }
 
-.product-info button:hover {
+.product-info .btn-add {
+  background: var(--primary);
+  color: #fff;
+}
+
+.product-info .btn-add:hover {
   background: var(--accent);
+}
+
+/* 🌿 View Details button */
+.product-info .btn-view {
+  background: var(--button-view);
+  color: #fff;
+  margin-top: 10px;
+}
+
+.product-info .btn-view:hover {
+  background: var(--button-view-hover);
 }
 
 /* 🛒 CART PAGE */
@@ -122,6 +151,7 @@ nav a:hover {
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 3px 8px var(--shadow);
+  overflow-x: auto;  /* prevents horizontal overflow */
 }
 
 .cart-container h2 {
@@ -131,6 +161,7 @@ nav a:hover {
 
 .cart-table table {
   width: 100%;
+  min-width: 600px; /* keeps structure even on small screens */
   border-collapse: collapse;
 }
 
@@ -267,11 +298,15 @@ footer {
   }
 
   .product-card img {
-    height: 200px;
+    height: 220px;
+  }
+
+  .cart-table table {
+    min-width: 100%;
   }
 
   .cart-item span {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .cart-table th, .cart-table td {
