@@ -24,14 +24,20 @@ html {
   scroll-behavior: smooth;
 }
 
+/* NON-SCROLLING LAYOUT FIXES */
 body {
   font-family: "Poppins", Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  padding-bottom: 80px;
-  overflow-x: hidden;
-  max-width: 100%;
+  padding-bottom: 80px; /* Space for fixed footer */
+  
+  /* FIX: Non-scrolling setup */
+  overflow: hidden; 
+  max-width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* HEADER (No changes here) */
@@ -78,11 +84,14 @@ nav a:hover {
   background: var(--primary-light);
 }
 
-/* MAIN (No changes here) */
+/* MAIN - FIX: Allows content to scroll INSIDE this container */
 main {
   max-width: 1200px;
   margin: auto;
   padding: 30px 20px;
+  flex-grow: 1; /* Takes up remaining space */
+  overflow-y: auto; /* IMPORTANT: Enables internal vertical scrolling */
+  width: 100%;
 }
 
 /* TABS (No changes here) */
@@ -206,7 +215,7 @@ main {
   border-collapse: collapse;
   box-shadow: 0 4px 10px var(--shadow);
   overflow-x: auto;
-  /* FIX: Changed display: block to allow proper table rendering */
+  /* FIX: Corrected display property */
   display: table; 
   border-radius: 8px;
 }
@@ -310,7 +319,7 @@ main {
   align-self: flex-start;
 }
 
-/* --- CART SECTION - UPDATED FOR TABLE LAYOUT --- */
+/* --- CART SECTION STYLING --- */
 .cart-container {
   max-width: 1000px;
   margin: 30px auto;
@@ -320,18 +329,16 @@ main {
   box-shadow: 0 6px 20px var(--shadow);
 }
 
-/* New wrapper for table to handle overflow */
 .cart-table-wrapper {
   overflow-x: auto;
   width: 100%;
   margin-bottom: 30px;
 }
 
-/* Style for the main cart table */
 .cart-table-style {
   width: 100%;
   border-collapse: collapse;
-  min-width: 650px; /* Ensures decent spacing on large screens */
+  min-width: 650px; 
 }
 
 .cart-table-style th, .cart-table-style td {
@@ -342,17 +349,16 @@ main {
 }
 
 .cart-table-style th {
-  background: var(--card); /* Light pink header */
+  background: var(--card); 
   color: var(--primary);
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.9em;
 }
 
-/* Item details column (Image and Text alignment) */
 .cart-item-detail {
   text-align: left;
-  display: flex; /* Use flex to align image and text */
+  display: flex; 
   align-items: center;
   gap: 15px;
 }
@@ -397,13 +403,9 @@ main {
     border: none;
     text-align: center;
     font-size: 1em;
-    -moz-appearance: textfield; 
-}
-
-.qty-input::-webkit-outer-spin-button,
-.qty-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+    /* FIX: Ensure read-only input looks right */
+    background: #fff; 
+    color: var(--text);
 }
 
 .qty-btn {
@@ -429,7 +431,6 @@ main {
     font-size: 1.1em;
 }
 
-/* Remove button - circular and distinctive */
 .remove-btn {
     background: var(--danger);
     color: #fff;
@@ -461,7 +462,6 @@ main {
     font-weight: 600;
 }
 
-
 /* Cart Summary Styling */
 .cart-summary {
     margin-top: 30px;
@@ -470,7 +470,7 @@ main {
     border-radius: 8px;
     box-shadow: 0 2px 8px var(--shadow);
     max-width: 350px; 
-    margin-left: auto; /* Push to the right */
+    margin-left: auto; 
     text-align: right;
 }
 
@@ -578,13 +578,13 @@ footer {
 
   /* Cart Mobile Adjustments - Stacked "Card" Table View */
   .cart-table-style, .cart-table-style thead, .cart-table-style tbody, .cart-table-style th, .cart-table-style td, .cart-table-style tr {
-      display: block; /* Turn table elements into blocks for stacking */
+      display: block; 
   }
 
   .cart-table-style thead tr {
       position: absolute;
       top: -9999px;
-      left: -9999px; /* Hide headers */
+      left: -9999px; 
   }
 
   .cart-table-style tr {
@@ -599,7 +599,7 @@ footer {
       border: none;
       border-bottom: 1px solid var(--light);
       position: relative;
-      padding-left: 50%; /* Make space for the pseudo-header */
+      padding-left: 50%; 
       text-align: right;
   }
   
@@ -625,9 +625,8 @@ footer {
       display: flex;
       align-items: center;
       text-align: left;
-      padding-left: 10px; /* Reset padding */
+      padding-left: 10px; 
       width: 100%;
-      /* Remove pseudo-header for the main item name */
       padding-left: 10px; 
   }
   
