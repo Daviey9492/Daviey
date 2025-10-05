@@ -118,7 +118,7 @@ main {
   color: var(--accent);
 }
 
-/* PRODUCT GRID - Inventory Decoration */
+/* PRODUCT GRID - Inventory Decoration (No changes here) */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -154,12 +154,12 @@ main {
 }
 
 .product-card h3 {
-  font-size: 1.1em; /* Slightly larger title */
-  margin: 12px 10px 4px; /* More padding around title */
+  font-size: 1.1em;
+  margin: 12px 10px 4px;
   text-align: center;
   font-weight: 600;
-  color: var(--primary); 
-  letter-spacing: 0.2px; /* Subtle spacing for titles */
+  color: var(--primary);
+  letter-spacing: 0.2px;
 }
 
 .price {
@@ -167,7 +167,7 @@ main {
   font-weight: 700;
   text-align: center;
   font-size: 1.1rem;
-  margin-bottom: 10px; /* Added spacing below price */
+  margin-bottom: 10px;
 }
 
 /* BUTTONS (No changes here) */
@@ -262,7 +262,7 @@ main {
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 15px var(--shadow);
-  max-height: 85vh; 
+  max-height: 85vh;
   overflow-y: auto;
 }
 
@@ -309,14 +309,14 @@ main {
   align-self: flex-start;
 }
 
-/* CART SECTION - Cart Page Decoration */
+/* --- CART SECTION - UPDATED FOR BETTER DISPLAY AND BUTTONS --- */
 .cart-container {
   max-width: 1000px;
   margin: 30px auto;
-  background: var(--bg); /* Use white background for clarity */
-  padding: 30px; /* Increased padding */
+  background: var(--bg);
+  padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 6px 20px var(--shadow); /* Stronger shadow for main container */
+  box-shadow: 0 6px 20px var(--shadow);
   overflow-x: auto;
 }
 
@@ -324,19 +324,19 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px; /* Increased gap */
-  padding: 15px 0; /* Increased vertical padding */
+  gap: 20px;
+  padding: 15px 0;
   border-bottom: 1px solid var(--light);
   flex-wrap: wrap;
 }
 
 .cart-item:last-child {
-  border-bottom: none; /* Remove border from the last item */
+  border-bottom: none;
 }
 
 .cart-item img {
-  width: 80px; /* Slightly larger image */
-  height: 80px; /* Slightly larger image */
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -346,7 +346,7 @@ main {
   flex: 1;
   min-width: 180px;
   font-weight: 600;
-  color: var(--primary); /* Item name in primary color */
+  color: var(--primary);
 }
 
 .cart-item-info span {
@@ -356,48 +356,118 @@ main {
   font-size: 0.9em;
 }
 
+/* Enhanced Quantity Control Styling */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--light);
+    border-radius: 5px;
+    overflow: hidden; /* Important for button borders */
+}
+
+.quantity-control input[type="number"] {
+    width: 45px; /* Slightly adjusted width */
+    padding: 6px 0;
+    border: none;
+    text-align: center;
+    font-size: 1em;
+    -moz-appearance: textfield; /* Hide default spin buttons in Firefox */
+}
+
+.quantity-control input[type="number"]::-webkit-outer-spin-button,
+.quantity-control input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Hide default spin buttons in Chrome/Safari */
+    margin: 0;
+}
+
+/* Quantity Control Buttons */
+.quantity-control button {
+    background: var(--light);
+    color: var(--primary);
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+    line-height: 1;
+    transition: background 0.3s;
+}
+
+.quantity-control button:hover {
+    background: var(--highlight);
+    color: var(--primary-light);
+}
+
 .cart-item-actions {
   display: flex;
   align-items: center;
-  gap: 15px; /* Increased gap in action area */
+  gap: 20px; /* Increased gap for visual separation */
   font-weight: 600;
+  min-width: 200px; /* Ensure space for quantity control and price */
 }
 
-.cart-item-actions input[type="number"] {
-    width: 50px;
-    padding: 5px;
-    border: 1px solid var(--light);
-    border-radius: 5px;
-    text-align: center;
-    font-size: 1em;
-}
-
-.cart-item-actions button {
-  background: var(--primary); /* Changed to primary for better button hierarchy */
-  color: #fff;
-  border: none;
-  padding: 8px 12px; /* Slightly larger padding */
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s;
-}
-
-.cart-item-actions button:hover {
-  background: var(--accent); /* Hover with accent color */
+.cart-item-actions .item-total {
+    color: var(--accent); /* Item price in accent color */
+    font-weight: 700;
+    font-size: 1.1em;
+    margin-right: 15px; /* Spacing before remove button */
 }
 
 /* Specific style for a 'Remove' button */
 .cart-item-actions .remove-btn {
     background: var(--danger); /* Use red for removal action */
+    color: #fff;
+    border: none;
     padding: 8px;
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer;
+    font-size: 0.9rem;
     line-height: 1;
+    width: 30px; /* Fixed width for circle */
+    height: 30px; /* Fixed height for circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cart-item-actions .remove-btn:hover {
     background: #a30000;
+    transform: scale(1.05);
 }
 
+/* Cart Summary Styling */
+.cart-summary {
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--card); /* Light pink background */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow);
+    max-width: 400px;
+    margin-left: auto; /* Push to the right */
+}
+
+.cart-summary div {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--light);
+}
+
+.cart-summary div:last-of-type {
+    border-bottom: none;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 10px;
+}
+
+.cart-summary .button {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1.1em;
+}
 
 /* FOOTER (No changes here) */
 footer {
@@ -411,7 +481,7 @@ footer {
   font-size: 0.85rem;
 }
 
-/* RESPONSIVE (No major structural changes, just re-used prior mobile adjustments) */
+/* RESPONSIVE (Adjusted Cart Mobile Layout) */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
@@ -431,7 +501,7 @@ footer {
   .product-card img {
     height: 240px;
   }
-  
+
   .product-detail-container {
     flex-direction: column;
     text-align: center;
@@ -449,7 +519,7 @@ footer {
     align-items: center;
     text-align: center;
   }
-  
+
   .product-detail-info .price {
       text-align: center;
   }
@@ -465,7 +535,7 @@ footer {
     text-align: center;
     align-items: center;
   }
-  
+
   .cart-item-info {
       min-width: unset;
       text-align: center;
@@ -475,10 +545,12 @@ footer {
   .cart-item img {
     margin-bottom: 10px;
   }
-  
+
   .cart-item-actions {
-      justify-content: center;
+      justify-content: space-around; /* Distribute items better */
       width: 100%;
+      min-width: unset;
+      gap: 10px; /* Reduced gap for smaller screens */
   }
 }
 
