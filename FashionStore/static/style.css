@@ -11,6 +11,7 @@
   --highlight: #E6E6FA; /* Soft Lavender for table/hover highlights */
   --shadow: rgba(0, 0, 0, 0.1);
   --danger: #cc0000; /* Red for remove/delete actions */
+  --checkout-success: #28a745; /* NEW: Green for checkout/payment */
 }
 
 /* RESET (No changes here) */
@@ -179,7 +180,7 @@ main {
   margin-bottom: 10px;
 }
 
-/* BUTTONS (No changes here) */
+/* BUTTONS */
 .button {
   display: block;
   text-align: center;
@@ -202,7 +203,17 @@ main {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* SALES TABLE FIX AND STYLING */
+/* FIX: Checkout button color override */
+.checkout-btn {
+    background: var(--checkout-success); /* Green color */
+}
+
+.checkout-btn:hover {
+    background: #1e7e34; /* Darker green on hover */
+    transform: translateY(-2px);
+}
+
+/* SALES TABLE FIX AND STYLING (No change) */
 #sales {
   text-align: center;
   margin-top: 60px;
@@ -215,7 +226,6 @@ main {
   border-collapse: collapse;
   box-shadow: 0 4px 10px var(--shadow);
   overflow-x: auto;
-  /* FIX: Corrected display property */
   display: table; 
   border-radius: 8px;
 }
@@ -384,46 +394,56 @@ main {
   font-size: 0.95em;
 }
 
-/* Quantity control styling */
-.qty-form {
+/* Quantity Edit Control Styling (No changes to layout) */
+.qty-form-edit {
     display: inline-block;
 }
 
-.quantity-control {
+.quantity-edit-control {
     display: flex;
     align-items: center;
     border: 1px solid var(--light);
     border-radius: 6px;
     overflow: hidden;
+    width: fit-content;
+    margin: auto;
 }
 
-.qty-input {
-    width: 40px; 
-    padding: 6px 0;
+.qty-input-manual {
+    width: 60px; 
+    padding: 6px 8px;
     border: none;
     text-align: center;
     font-size: 1em;
-    /* FIX: Ensure read-only input looks right */
     background: #fff; 
     color: var(--text);
+    -moz-appearance: textfield; 
 }
 
-.qty-btn {
-    background: var(--light);
-    color: var(--primary);
+.qty-input-manual::-webkit-outer-spin-button,
+.qty-input-manual::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* MODIFIED: Edit Button Styling */
+.btn-edit-qty {
+    background: var(--primary); /* Deep Navy Blue for Edit */
+    color: #fff;
     border: none;
-    padding: 6px 8px;
+    padding: 6px 12px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.9em;
     font-weight: 600;
-    line-height: 1;
+    line-height: 1.2;
     transition: background 0.3s;
 }
 
-.qty-btn:hover {
-    background: var(--highlight);
-    color: var(--primary-light);
+.btn-edit-qty:hover {
+    background: var(--primary-light); /* Lighter blue on hover */
 }
+
 
 .item-total {
     color: var(--accent);
@@ -462,7 +482,7 @@ main {
     font-weight: 600;
 }
 
-/* Cart Summary Styling */
+/* Cart Summary Styling (No change to layout) */
 .cart-summary {
     margin-top: 30px;
     padding: 20px;
@@ -528,7 +548,7 @@ footer {
   font-size: 0.85rem;
 }
 
-/* RESPONSIVE (Adjusted Cart Mobile Layout for Tables) */
+/* RESPONSIVE (No changes to logic) */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
@@ -641,6 +661,11 @@ footer {
 
   .cart-summary {
       max-width: 100%;
+  }
+
+  /* Mobile adjustment for new edit control */
+  .quantity-edit-control {
+      margin: 5px 0 0 auto;
   }
 }
 
