@@ -6,35 +6,113 @@
   <title>{{ product.item_name if product else 'Product Not Found' }} - Trendy Fashion Hub</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <style>
-    body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; }
-    header { background: #333; color: #fff; text-align: center; padding: 15px 0; }
+    /* GLOBAL NO-SCROLL LAYOUT FIXES */
+    html, body {
+        height: 100%; /* Ensure both html and body take up full viewport height */
+        margin: 0;
+        padding: 0;
+        /* Prevent body scrolling and enable flex container */
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+    }
+    
+    header { 
+        background: #333; color: #fff; text-align: center; padding: 15px 0; 
+        flex-shrink: 0; /* Header won't shrink */
+    }
     nav a { color: #fff; margin: 0 12px; text-decoration: none; }
-    main { padding: 40px 20px; max-width: 1200px; margin: auto; }
 
-    .product-detail { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; background: #fff;
-      padding: 30px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
-    .product-detail img { max-width: 480px; border-radius: 8px; }
-    .info { flex: 1; min-width: 280px; }
-    .info h2 { font-size: 2em; margin: 0 0 10px; color: #333; }
-    .price { font-size: 1.8em; color: #d9534f; margin-bottom: 15px; font-weight: bold; }
-    .stock { font-weight: bold; margin-bottom: 20px; }
+    /* MAIN CONTENT FIX */
+    main { 
+        padding: 20px; /* Reduced vertical padding */
+        max-width: 1200px; 
+        margin: 0 auto;
+        /* Allow main content to take remaining space and scroll internally */
+        flex-grow: 1;
+        overflow-y: auto; 
+        width: 100%;
+        box-sizing: border-box; /* Include padding in the width calculation */
+    }
+
+    /* PRODUCT DETAIL STYLING */
+    .product-detail { 
+        display: flex; flex-wrap: wrap; gap: 30px; /* Reduced gap */
+        justify-content: center; 
+        background: #fff;
+        padding: 20px; /* Reduced padding */
+        border-radius: 8px; 
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1); 
+    }
+
+    /* IMAGE RESPONSIVENESS */
+    .product-detail img { 
+        max-width: 100%; /* Ensure image is never wider than its container */
+        height: auto;
+        max-height: 40vh; /* Limit max height to prevent overflow on small screens */
+        width: auto;
+        border-radius: 8px; 
+        object-fit: contain; /* Ensure the whole image is visible */
+    }
+
+    .info { flex: 1; min-width: 250px; } /* Min width adjusted for mobile */
+    .info h2 { font-size: 1.8em; margin: 0 0 10px; color: #333; } /* Font size adjusted */
+    .price { font-size: 1.6em; color: #d9534f; margin-bottom: 15px; font-weight: bold; } /* Font size adjusted */
+    .stock { font-weight: bold; margin-bottom: 15px; } 
     .in { color: #28a745; } .out { color: #dc3545; }
-    .details { background: #f8f9fa; border-left: 5px solid #007bff; padding: 10px 15px; margin-bottom: 20px; }
-    .desc { color: #555; line-height: 1.6; }
-    form { margin-top: 20px; }
+    .details { background: #f8f9fa; border-left: 5px solid #007bff; padding: 10px 15px; margin-bottom: 15px; }
+    .desc { color: #555; line-height: 1.5; font-size: 0.9em; } /* Line height/size adjusted */
+    
+    /* BUTTONS */
+    form { margin-top: 15px; }
     button {
-      background: #f0ad4e; color: #fff; padding: 12px 25px; border: none;
-      border-radius: 4px; cursor: pointer; font-size: 1.1em;
+      background: #f0ad4e; color: #fff; padding: 10px 20px; border: none; /* Reduced padding */
+      border-radius: 4px; cursor: pointer; font-size: 1em;
     }
     button:hover { background: #ec971f; }
+    
+    /* STATUS MESSAGES */
     .status {
-      text-align: center; padding: 12px; margin: 20px auto; max-width: 800px;
-      border-radius: 5px; font-weight: bold;
+      text-align: center; padding: 10px; margin: 15px auto; max-width: 800px;
+      border-radius: 5px; font-weight: bold; font-size: 0.9em;
     }
     .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
     .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-    .not-found { text-align: center; padding: 80px; color: #777; }
-    footer { background: #333; color: #fff; text-align: center; padding: 10px 0; margin-top: 40px; }
+    .not-found { text-align: center; padding: 40px; color: #777; }
+    
+    /* FOOTER */
+    footer { 
+        background: #333; color: #fff; text-align: center; padding: 10px 0; 
+        margin-top: 0; 
+        flex-shrink: 0; /* Footer won't shrink */
+    }
+    
+    /* RESPONSIVENESS for small screens */
+    @media (max-width: 600px) {
+        .product-detail {
+            flex-direction: column;
+            padding: 15px;
+            gap: 20px;
+        }
+        .product-detail img {
+            max-height: 40vh; /* Ensures image doesn't dominate the view */
+            width: 100%;
+        }
+        .info {
+            min-width: 100%;
+            text-align: center; /* Center text on small screens */
+        }
+        .info h2, .price, .stock, .details, .desc, form {
+            text-align: left; /* Keep core info left-aligned for readability */
+            margin: 0 auto 10px auto;
+        }
+        nav a {
+            display: block;
+            margin: 5px 0;
+        }
+    }
   </style>
 </head>
 <body>
