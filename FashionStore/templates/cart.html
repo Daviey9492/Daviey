@@ -4,7 +4,63 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Cart | Trendy Fashion Hub</title>
+  <!-- NOTE: Assuming static/style.css exists and provides necessary styling -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* Base styles using Inter font and light background */
+    body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; color: #333; }
+    .cart-container { max-width: 1000px; margin: 20px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); }
+    
+    /* Header & Navigation */
+    header { background-color: #333; color: white; padding: 15px 0; text-align: center; }
+    header h1 { margin: 0; font-size: 1.8rem; }
+    header nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: 500; }
+    h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
+    
+    /* Flash Messages */
+    .flash-message { padding: 10px; margin-bottom: 20px; border-radius: 8px; font-weight: 600; }
+    .flash-message.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .flash-message.warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .flash-message.success, .flash-message.info { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+
+    /* Table Styling for Responsiveness */
+    .cart-table-wrapper { overflow-x: auto; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; }
+    .cart-table-style { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .cart-table-style th, .cart-table-style td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+    .cart-table-style th { background-color: #f4f4f4; font-weight: 600; color: #555; }
+    .cart-item-detail { display: flex; align-items: center; }
+    .cart-item-detail img { width: 60px; height: 60px; object-fit: cover; margin-right: 15px; border-radius: 6px; }
+    
+    /* Quantity Control */
+    .qty-form-edit { display: flex; align-items: center; }
+    .quantity-edit-control { display: flex; gap: 5px; align-items: center; }
+    .qty-input-manual { width: 50px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; }
+    .btn-edit-qty { background-color: #007bff; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; }
+    .btn-edit-qty:hover { background-color: #0056b3; }
+    .remove-btn { background: none; border: none; color: #dc3545; font-size: 1.2rem; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; }
+    .remove-btn:hover { opacity: 1; }
+    .low-stock { color: #ffc107; font-weight: bold; display: block; margin-top: 5px; font-size: 0.75rem; }
+
+    /* Summary & Total */
+    .cart-summary { border-top: 2px solid #ddd; padding-top: 15px; max-width: 350px; margin-left: auto; }
+    .cart-summary > div { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 1rem; }
+    .grand-total { font-size: 1.25rem; font-weight: bold; border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; color: #28a745; }
+    .checkout-btn { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; margin-top: 20px; transition: background-color 0.2s, transform 0.1s; }
+    .checkout-btn:hover { background-color: #218838; transform: translateY(-1px); }
+    .empty-cart { text-align: center; padding: 50px; font-size: 1.2rem; }
+    
+    /* Responsive Table (Mobile View) */
+    @media (max-width: 768px) {
+        .cart-table-style thead { display: none; }
+        .cart-table-style, .cart-table-style tbody, .cart-table-style tr, .cart-table-style td { display: block; width: 100%; }
+        .cart-table-style tr { margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px; padding: 10px; }
+        .cart-table-style td { text-align: right; padding-left: 50%; position: relative; }
+        .cart-table-style td::before { content: attr(data-label); position: absolute; left: 10px; width: calc(50% - 20px); text-align: left; font-weight: bold; color: #555; }
+        .cart-item-detail { justify-content: flex-end; }
+        .cart-item-info { flex-grow: 1; text-align: left; }
+        .cart-summary { max-width: 100%; }
+    }
+  </style>
 </head>
 
 <body>
@@ -18,7 +74,15 @@
 </header>
 
 <main class="cart-container">
-  <h2>Your Shopping Cart</h2>
+  <h2>Your Shopping Cart ({{ item_count }} Items)</h2>
+  
+  {% with status_message = session.pop('status_message', None) %}
+    {% if status_message %}
+      <div class="flash-message {% if '❌' in status_message %}error{% elif '⚠️' in status_message %}warning{% else %}success{% endif %}">
+        {{ status_message }}
+      </div>
+    {% endif %}
+  {% endwith %}
 
   {% if cart_items %}
   <div class="cart-table-wrapper">
@@ -33,16 +97,18 @@
         </tr>
       </thead>
       <tbody>
-        {% set item_count = namespace(total=0) %}
         {% for item in cart_items %}
         <tr>
+          <!-- Item Details (Image and Name) -->
           <td class="cart-item-detail" data-label="Item">
-            <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.item_name }}">
+            <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.item_name }}" onerror="this.onerror=null; this.src='https://placehold.co/60x60/A0A0A0/ffffff?text=Image'">
             <div class="cart-item-info">
                 <span>{{ item.item_name }}</span>
             </div>
           </td>
+          <!-- Price -->
           <td data-label="Unit Price">KSh {{ "{:,.2f}".format(item.unit_price) }}</td>
+          <!-- Quantity Control (Uses Edit Button logic) -->
           <td data-label="Quantity">
             <form method="POST" action="{{ url_for('update_cart') }}" class="qty-form-edit">
               <input type="hidden" name="item_id" value="{{ item.id }}">
@@ -51,44 +117,51 @@
                       type="number" 
                       name="quantity" 
                       value="{{ item.quantity }}" 
-                      min="1" 
+                      min="0" 
                       max="{{ item.current_stock }}" 
                       class="qty-input-manual"
                       aria-label="Change quantity"
                   >
-                  <button type="submit" name="action" value="manual_update" class="btn-edit-qty">Edit</button>
+                  <!-- Submitting this form sends the new quantity value to the /update_cart route -->
+                  <button type="submit" class="btn-edit-qty">Edit</button>
               </div>
             </form>
             {% if 0 < item.current_stock < 5 %}
-              <small class="low-stock">Low stock!</small>
+              <small class="low-stock">Low stock! ({{ item.current_stock }} left)</small>
             {% endif %}
           </td>
+          <!-- Total -->
           <td class="item-total" data-label="Subtotal">KSh {{ "{:,.2f}".format(item.total) }}</td>
+          <!-- Remove Button (Sends quantity=0 to update_cart) -->
           <td data-label="Remove">
             <form method="POST" action="{{ url_for('update_cart') }}">
               <input type="hidden" name="item_id" value="{{ item.id }}">
               <input type="hidden" name="quantity" value="0">
-              <button type="submit" name="action" value="remove" class="remove-btn" aria-label="Remove item">✖</button>
+              <button type="submit" class="remove-btn" aria-label="Remove item">✖</button>
             </form>
           </td>
         </tr>
-        {% set item_count.total = item_count.total + item.quantity %}
         {% endfor %}
       </tbody>
     </table>
   </div>
 
+  <!-- Cart Summary & Checkout -->
   <div class="cart-summary">
+    <!-- Subtotal: Passed from app.py -->
     <div><span>Subtotal:</span><span class="price-value">KSh {{ "{:,.2f}".format(subtotal) }}</span></div>
     
-    {% set shipping_fee_per_item = 129.00 %}
-    {% set total_shipping_cost = item_count.total * shipping_fee_per_item %}
+    <!-- Shipping: Passed from app.py -->
+    <div>
+        <span>Shipping ({{ item_count }} items @ KSh {{ "{:,.2f}".format(shipping_fee) }}):</span>
+        <span class="price-value">KSh {{ "{:,.2f}".format(total_shipping_cost) }}</span>
+    </div>
     
-    <div><span>Shipping ({{ item_count.total }} items @ KSh 129.00):</span><span class="price-value">KSh {{ "{:,.2f}".format(total_shipping_cost) }}</span></div>
-    
-    {% set final_grand_total = subtotal + total_shipping_cost %}
-    
-    <div class="grand-total"><span>Grand Total:</span><span class="price-value">KSh {{ "{:,.2f}".format(final_grand_total) }}</span></div>
+    <!-- Grand Total: Passed from app.py -->
+    <div class="grand-total">
+        <span>Grand Total:</span>
+        <span class="price-value">KSh {{ "{:,.2f}".format(grand_total) }}</span>
+    </div>
     
     <form method="POST" action="{{ url_for('checkout') }}">
       <button type="submit" class="button checkout-btn">Proceed to Checkout</button>
