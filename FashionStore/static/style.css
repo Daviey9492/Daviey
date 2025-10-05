@@ -136,7 +136,7 @@ main {
 
 .product-card img {
   width: 100%;
-  height: 260px;         /* ⬅ keep original photo display */
+  height: 260px;
   object-fit: cover;
   border-radius: 8px;
   transition: transform 0.3s ease;
@@ -236,107 +236,140 @@ main {
   font-size: 0.95rem;
 }
 
-/* 🛒 CART SECTION */
+/* 🛒 CART PAGE */
 .cart-container {
-  width: 90%;
   max-width: 1000px;
   margin: 40px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 0 20px;
 }
 
-.cart-container table {
+.cart-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.cart-table {
+  overflow-x: auto;
+}
+
+.cart-table table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  background: #fff;
+  box-shadow: 0 4px 10px var(--shadow);
+  border-radius: 8px;
 }
 
-.cart-container th,
-.cart-container td {
-  padding: 10px 8px;
+.cart-table th, .cart-table td {
+  padding: 12px 10px;
+  text-align: center;
   border-bottom: 1px solid #eee;
-  text-align: left;
   vertical-align: middle;
-  word-wrap: break-word;
 }
 
-.cart-container th {
-  background: #008060;
+.cart-table th {
+  background: var(--primary);
   color: #fff;
-  font-weight: 500;
+  font-size: 0.95rem;
 }
 
-.cart-container img {
-  width: 60px;
-  height: 60px;
+.cart-table td img {
+  width: 70px;
+  height: 70px;
   object-fit: cover;
-  border-radius: 6px;
-  display: block;
-  margin: 0 auto;
+  border-radius: 5px;
+  margin-right: 8px;
 }
 
-.cart-item-name {
+.cart-item {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   gap: 10px;
-  overflow: hidden;
+  text-align: left;
 }
 
-.cart-item-name span {
-  display: block;
-  white-space: normal;
-  word-break: break-word;
+.qty-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
-.cart-container input[type="number"] {
-  width: 50px;
+.qty-form input[type="number"] {
+  width: 55px;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
   text-align: center;
 }
 
-.cart-container .btn-update,
-.cart-container .btn-remove {
-  padding: 6px 8px;
+.btn-update, .btn-remove {
+  background: var(--accent);
+  color: #fff;
   border: none;
+  padding: 5px 8px;
   border-radius: 4px;
   cursor: pointer;
-  color: #fff;
-  font-size: 0.85rem;
+  transition: background 0.3s;
 }
 
-.cart-container .btn-update {
-  background: #007bff;
+.btn-update:hover, .btn-remove:hover {
+  background: var(--primary);
 }
 
-.cart-container .btn-remove {
-  background: #dc3545;
+.btn-remove {
+  background: #e53935;
+}
+
+.low-stock {
+  color: #e53935;
+  font-size: 0.8rem;
+  display: block;
+  margin-top: 3px;
 }
 
 .checkout {
   text-align: right;
-  padding-top: 15px;
-  margin-top: 15px;
-  border-top: 2px solid #eee;
+  margin-top: 20px;
 }
 
-.checkout button {
-  background: #28a745;
+.checkout-btn {
+  background: var(--primary);
   color: #fff;
-  border: none;
   padding: 10px 18px;
+  border: none;
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s;
 }
 
-.checkout button:hover {
-  background: #218838;
+.checkout-btn:hover {
+  background: var(--accent);
+}
+
+.empty-cart {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+.empty-cart-link {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.empty-cart-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.empty-cart-link a:hover {
+  text-decoration: underline;
 }
 
 /* ⚫ FOOTER */
@@ -382,18 +415,9 @@ footer {
     font-size: 0.9rem;
   }
 
-  .cart-item-name {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .checkout {
-    text-align: center;
-  }
-
-  .checkout button {
-    width: 100%;
+  .cart-table td img {
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -412,7 +436,7 @@ footer {
   }
 }
 
-/* ✨ Hover detail */
+/* ✨ Small visual detail on hover */
 .product-card::after {
   content: "✨";
   position: absolute;
