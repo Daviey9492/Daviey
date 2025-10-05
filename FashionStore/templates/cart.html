@@ -45,9 +45,10 @@
           <td data-label="Quantity">
             <form method="POST" action="{{ url_for('update_cart') }}" class="qty-form">
               <input type="hidden" name="item_id" value="{{ item.id }}">
+              <input type="hidden" name="quantity" value="{{ item.quantity }}">
               <div class="quantity-control">
                   <button type="submit" name="action" value="decrease" class="qty-btn" aria-label="Decrease quantity">-</button>
-                  <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.current_stock }}" class="qty-input">
+                  <input type="number" value="{{ item.quantity }}" min="1" max="{{ item.current_stock }}" class="qty-input" readonly>
                   <button type="submit" name="action" value="increase" class="qty-btn" aria-label="Increase quantity">+</button>
               </div>
             </form>
@@ -59,8 +60,7 @@
           <td data-label="Remove">
             <form method="POST" action="{{ url_for('update_cart') }}">
               <input type="hidden" name="item_id" value="{{ item.id }}">
-              <input type="hidden" name="quantity" value="0">
-              <button type="submit" class="remove-btn" aria-label="Remove item">✖</button>
+              <button type="submit" name="action" value="remove" class="remove-btn" aria-label="Remove item">✖</button>
             </form>
           </td>
         </tr>
