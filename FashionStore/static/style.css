@@ -1,21 +1,24 @@
-/* 🌸 TRENDY FASHION HUB — POLISHED PROFESSIONAL THEME */
+/* 🌸 TRENDY FASHION HUB — MODERN RESPONSIVE ELEGANCE */
 :root {
-  --primary: #6A1B9A;
-  --accent: #8D6E63;
+  --primary: #6A1B9A;      /* Deep violet for elegance */
+  --accent: #8D6E63;       /* Muted brown for warmth */
   --text: #333;
-  --bg: #f5f5f5;
-  --card: #fff;
-  --shadow: rgba(0, 0, 0, 0.12);
-  --light: #f9f9f9;
-  --button-view: #009688;  /* Teal accent for View Details */
-  --button-view-hover: #00796b;
+  --bg: #fff;
+  --card: #fafafa;
+  --light: #f3f3f3;
+  --highlight: #e0f7fa;
+  --shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* RESET */
+/* 🌍 GLOBAL RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -27,290 +30,282 @@ body {
   overflow-x: hidden;
 }
 
-/* HEADER */
+/* 🟣 HEADER */
 header {
   background: var(--primary);
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 20px;
-  flex-wrap: wrap;
+  padding: 14px 24px;
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 3px 10px var(--shadow);
+  flex-wrap: wrap;
 }
 
 header h1 {
-  font-size: 1.4rem;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
   font-weight: 600;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 nav {
   display: flex;
-  gap: 15px;
   flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 nav a {
   color: #fff;
+  margin: 5px 8px;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+  font-size: 0.95rem;
 }
 
 nav a:hover {
-  color: #e0f7fa;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* 📌 MAIN WRAPPER */
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* 🗂 CATEGORY TABS */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.tab-button {
+  border: none;
+  background: var(--light);
+  color: var(--text);
+  font-size: 1em;
+  padding: 10px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab-button:hover,
+.tab-button.active {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.tab-button.active::before {
+  content: "• ";
+  color: var(--accent);
 }
 
 /* 🛍 PRODUCT GRID */
-.products {
-  max-width: 1200px;
-  margin: 40px auto;
+.product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 25px;
-  padding: 0 15px;
 }
 
 .product-card {
   background: var(--card);
   border-radius: 10px;
+  box-shadow: 0 4px 10px var(--shadow);
+  transition: all 0.3s ease;
   overflow: hidden;
-  box-shadow: 0 4px 8px var(--shadow);
-  transition: transform 0.3s;
-  display: flex;
-  flex-direction: column;
+  position: relative;
 }
 
 .product-card:hover {
   transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
 .product-card img {
   width: 100%;
-  height: 280px;             /* uniform image height */
-  object-fit: cover;         /* fully visible inside */
-  display: block;
+  height: 260px;         /* ⬅ keep original photo display */
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
-/* Info section inside card */
-.product-info {
-  padding: 15px;
+.product-card:hover img {
+  transform: scale(1.03);
+}
+
+.product-card h3 {
+  font-size: 1.05em;
+  margin: 10px 0 4px;
   text-align: center;
+  font-weight: 600;
 }
 
-.product-info h3 {
-  font-size: 1.1rem;
-  margin-bottom: 6px;
-}
-
-.product-info p {
-  color: #666;
-  margin-bottom: 10px;
+.price {
+  color: var(--accent);
+  font-weight: 600;
+  text-align: center;
   font-size: 0.95rem;
 }
 
-/* Buttons */
-.product-info .btn {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-.product-info .btn-add {
-  background: var(--primary);
-  color: #fff;
-}
-
-.product-info .btn-add:hover {
-  background: var(--accent);
-}
-
-/* 🌿 View Details button */
-.product-info .btn-view {
-  background: var(--button-view);
-  color: #fff;
-  margin-top: 10px;
-}
-
-.product-info .btn-view:hover {
-  background: var(--button-view-hover);
-}
-
-/* 🛒 CART PAGE */
-.cart-container {
-  max-width: 1000px;
-  margin: 40px auto;
-  background: var(--card);
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px var(--shadow);
-  overflow-x: auto;  /* prevents horizontal overflow */
-}
-
-.cart-container h2 {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.cart-table table {
-  width: 100%;
-  min-width: 600px; /* keeps structure even on small screens */
-  border-collapse: collapse;
-}
-
-.cart-table th {
-  background: var(--light);
-  text-align: left;
-  padding: 12px;
-  font-weight: 600;
-  border-bottom: 2px solid #eee;
-}
-
-.cart-table td {
-  padding: 12px;
-  vertical-align: middle;
-  border-bottom: 1px solid #eee;
-}
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.cart-item img {
-  width: 60px;
-  height: 60px;
-  border-radius: 6px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.qty-form {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.qty-form input[type="number"] {
-  width: 50px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.btn-update {
-  background: #007bff;
-  color: #fff;
-  border: none;
-  padding: 5px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-remove {
-  background: #dc3545;
-  color: #fff;
-  border: none;
-  padding: 5px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.low-stock {
-  color: orange;
-  font-size: 0.8rem;
+/* 🛒 BUTTONS */
+.button {
   display: block;
-  margin-top: 4px;
-}
-
-.checkout {
-  text-align: right;
-  margin-top: 25px;
-  border-top: 2px solid #eee;
-  padding-top: 15px;
-}
-
-.checkout-btn {
-  background: #28a745;
+  text-align: center;
+  margin: 12px auto;
+  background: var(--accent);
   color: #fff;
-  border: none;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.checkout-btn:hover {
-  background: #218838;
-}
-
-.empty-cart {
-  text-align: center;
-  margin: 60px 0 10px;
-}
-
-.empty-cart-link {
-  text-align: center;
-}
-
-.empty-cart-link a {
-  color: var(--primary);
-  font-weight: 500;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95em;
+  transition: background 0.3s, transform 0.2s;
+  width: fit-content;
 }
 
-.empty-cart-link a:hover {
-  text-decoration: underline;
+.button:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
 }
 
-/* FOOTER */
-footer {
+/* 🪩 SALES TABLE */
+#sales {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.sale-table {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 0 4px 10px var(--shadow);
+  overflow-x: auto;
+  display: block;
+}
+
+.sale-table th, .sale-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.sale-table th {
   background: var(--primary);
   color: #fff;
+}
+
+.sale-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.sale-table tr:hover {
+  background: var(--highlight);
+}
+
+/* 🌿 BENEFITS SECTION */
+#benefits {
   text-align: center;
-  padding: 8px 0;
-  font-size: 0.9rem;
+  margin-top: 70px;
+  padding: 0 15px;
+}
+
+.benefits-list p {
+  background: #f1f8e9;
+  padding: 15px;
+  margin: 15px auto;
+  max-width: 800px;
+  border-left: 5px solid var(--primary);
+  border-radius: 6px;
+  text-align: left;
+  box-shadow: 0 2px 5px var(--shadow);
+  font-size: 0.95rem;
+}
+
+/* ⚫ FOOTER */
+footer {
+  background: var(--text);
+  color: #fff;
+  text-align: center;
+  padding: 12px 0;
   position: fixed;
   bottom: 0;
   width: 100%;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
   header {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 15px;
+    text-align: center;
+    padding: 12px 15px;
   }
 
   nav {
-    margin-top: 10px;
-    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tabs {
+    flex-direction: column;
+    align-items: center;
   }
 
   .product-card img {
-    height: 220px;
+    height: 220px; /* better fit on mobile */
   }
 
-  .cart-table table {
-    min-width: 100%;
+  .sale-table th, .sale-table td {
+    font-size: 0.85rem;
+    padding: 10px;
   }
 
-  .cart-item span {
+  .benefits-list p {
     font-size: 0.9rem;
   }
+}
 
-  .cart-table th, .cart-table td {
-    font-size: 0.9rem;
-    padding: 8px;
+@media (max-width: 400px) {
+  nav a {
+    font-size: 0.8rem;
+    padding: 4px 8px;
   }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .product-card img {
+    height: 200px;
+  }
+}
+
+/* ✨ Small visual detail on hover */
+.product-card::after {
+  content: "✨";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.1em;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.product-card:hover::after {
+  opacity: 1;
 }
