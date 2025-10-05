@@ -193,7 +193,7 @@ main {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* SALES TABLE (No changes here) */
+/* SALES TABLE FIX AND STYLING */
 #sales {
   text-align: center;
   margin-top: 60px;
@@ -206,7 +206,8 @@ main {
   border-collapse: collapse;
   box-shadow: 0 4px 10px var(--shadow);
   overflow-x: auto;
-  display: block;
+  /* FIX: Changed display: block to allow proper table rendering */
+  display: table; 
   border-radius: 8px;
 }
 
@@ -309,7 +310,7 @@ main {
   align-self: flex-start;
 }
 
-/* --- CART SECTION - UPDATED FOR BETTER DISPLAY AND BUTTONS --- */
+/* --- CART SECTION - UPDATED FOR TABLE LAYOUT --- */
 .cart-container {
   max-width: 1000px;
   margin: 30px auto;
@@ -317,135 +318,160 @@ main {
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 6px 20px var(--shadow);
+}
+
+/* New wrapper for table to handle overflow */
+.cart-table-wrapper {
   overflow-x: auto;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
-.cart-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 15px 0;
+/* Style for the main cart table */
+.cart-table-style {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px; /* Ensures decent spacing on large screens */
+}
+
+.cart-table-style th, .cart-table-style td {
+  padding: 15px 10px;
   border-bottom: 1px solid var(--light);
-  flex-wrap: wrap;
+  text-align: center;
+  vertical-align: middle;
 }
 
-.cart-item:last-child {
-  border-bottom: none;
+.cart-table-style th {
+  background: var(--card); /* Light pink header */
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9em;
 }
 
-.cart-item img {
-  width: 80px;
-  height: 80px;
+/* Item details column (Image and Text alignment) */
+.cart-item-detail {
+  text-align: left;
+  display: flex; /* Use flex to align image and text */
+  align-items: center;
+  gap: 15px;
+}
+
+.cart-item-detail img {
+  width: 70px;
+  height: 70px;
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cart-item-info {
-  flex: 1;
-  min-width: 180px;
   font-weight: 600;
   color: var(--primary);
+  line-height: 1.2;
 }
 
 .cart-item-info span {
   display: block;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--text);
-  font-size: 0.9em;
+  font-size: 0.95em;
 }
 
-/* Enhanced Quantity Control Styling */
+/* Quantity control styling */
+.qty-form {
+    display: inline-block;
+}
+
 .quantity-control {
     display: flex;
     align-items: center;
     border: 1px solid var(--light);
-    border-radius: 5px;
-    overflow: hidden; /* Important for button borders */
+    border-radius: 6px;
+    overflow: hidden;
 }
 
-.quantity-control input[type="number"] {
-    width: 45px; /* Slightly adjusted width */
+.qty-input {
+    width: 40px; 
     padding: 6px 0;
     border: none;
     text-align: center;
     font-size: 1em;
-    -moz-appearance: textfield; /* Hide default spin buttons in Firefox */
+    -moz-appearance: textfield; 
 }
 
-.quantity-control input[type="number"]::-webkit-outer-spin-button,
-.quantity-control input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none; /* Hide default spin buttons in Chrome/Safari */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
     margin: 0;
 }
 
-/* Quantity Control Buttons */
-.quantity-control button {
+.qty-btn {
     background: var(--light);
     color: var(--primary);
     border: none;
-    padding: 6px 10px;
+    padding: 6px 8px;
     cursor: pointer;
-    font-size: 1.1em;
-    font-weight: 700;
+    font-size: 1em;
+    font-weight: 600;
     line-height: 1;
     transition: background 0.3s;
 }
 
-.quantity-control button:hover {
+.qty-btn:hover {
     background: var(--highlight);
     color: var(--primary-light);
 }
 
-.cart-item-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px; /* Increased gap for visual separation */
-  font-weight: 600;
-  min-width: 200px; /* Ensure space for quantity control and price */
-}
-
-.cart-item-actions .item-total {
-    color: var(--accent); /* Item price in accent color */
+.item-total {
+    color: var(--accent);
     font-weight: 700;
     font-size: 1.1em;
-    margin-right: 15px; /* Spacing before remove button */
 }
 
-/* Specific style for a 'Remove' button */
-.cart-item-actions .remove-btn {
-    background: var(--danger); /* Use red for removal action */
+/* Remove button - circular and distinctive */
+.remove-btn {
+    background: var(--danger);
     color: #fff;
     border: none;
     padding: 8px;
-    border-radius: 50%; /* Make it circular */
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     line-height: 1;
-    width: 30px; /* Fixed width for circle */
-    height: 30px; /* Fixed height for circle */
-    display: flex;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.cart-item-actions .remove-btn:hover {
+.remove-btn:hover {
     background: #a30000;
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
+
+.low-stock {
+    display: block;
+    font-size: 0.8em;
+    color: var(--danger);
+    margin-top: 5px;
+    font-weight: 600;
+}
+
 
 /* Cart Summary Styling */
 .cart-summary {
     margin-top: 30px;
     padding: 20px;
-    background: var(--card); /* Light pink background */
+    background: var(--card);
     border-radius: 8px;
     box-shadow: 0 2px 8px var(--shadow);
-    max-width: 400px;
+    max-width: 350px; 
     margin-left: auto; /* Push to the right */
+    text-align: right;
 }
 
 .cart-summary div {
@@ -453,21 +479,42 @@ main {
     justify-content: space-between;
     padding: 8px 0;
     border-bottom: 1px dashed var(--light);
+    font-size: 1.05em;
 }
 
-.cart-summary div:last-of-type {
-    border-bottom: none;
-    font-size: 1.2em;
+.grand-total {
+    border-bottom: none !important;
+    font-size: 1.3em !important;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--primary) !important;
     margin-top: 10px;
 }
 
-.cart-summary .button {
-    width: 100%;
-    margin-top: 20px;
-    font-size: 1.1em;
+.price-value {
+    color: var(--accent);
+    font-weight: 600;
 }
+
+.grand-total .price-value {
+    color: var(--accent);
+}
+
+.checkout-btn {
+    margin: 20px 0 0 0;
+    width: 100%;
+}
+
+.empty-cart {
+    text-align: center;
+    font-size: 1.5em;
+    color: var(--primary);
+}
+
+.empty-cart-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
 
 /* FOOTER (No changes here) */
 footer {
@@ -481,7 +528,7 @@ footer {
   font-size: 0.85rem;
 }
 
-/* RESPONSIVE (Adjusted Cart Mobile Layout) */
+/* RESPONSIVE (Adjusted Cart Mobile Layout for Tables) */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
@@ -529,28 +576,72 @@ footer {
     margin-top: 15px;
   }
 
-  /* Cart Mobile Adjustments */
-  .cart-item {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
+  /* Cart Mobile Adjustments - Stacked "Card" Table View */
+  .cart-table-style, .cart-table-style thead, .cart-table-style tbody, .cart-table-style th, .cart-table-style td, .cart-table-style tr {
+      display: block; /* Turn table elements into blocks for stacking */
+  }
+
+  .cart-table-style thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px; /* Hide headers */
+  }
+
+  .cart-table-style tr {
+      border: 1px solid var(--light);
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px var(--shadow);
+      padding: 10px;
+  }
+
+  .cart-table-style td {
+      border: none;
+      border-bottom: 1px solid var(--light);
+      position: relative;
+      padding-left: 50%; /* Make space for the pseudo-header */
+      text-align: right;
+  }
+  
+  .cart-table-style tr td:last-child {
+      border-bottom: none;
+  }
+
+  /* Pseudo-header using the data-label attribute */
+  .cart-table-style td:before {
+      content: attr(data-label);
+      position: absolute;
+      left: 10px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      text-align: left;
+      font-weight: 600;
+      color: var(--primary-light);
+  }
+  
+  /* Special handling for the item detail row on mobile */
+  .cart-item-detail {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      padding-left: 10px; /* Reset padding */
+      width: 100%;
+      /* Remove pseudo-header for the main item name */
+      padding-left: 10px; 
+  }
+  
+  .cart-item-detail:before {
+      content: none;
   }
 
   .cart-item-info {
-      min-width: unset;
-      text-align: center;
-      margin-bottom: 10px;
+      text-align: left;
+      flex: 1;
   }
 
-  .cart-item img {
-    margin-bottom: 10px;
-  }
-
-  .cart-item-actions {
-      justify-content: space-around; /* Distribute items better */
-      width: 100%;
-      min-width: unset;
-      gap: 10px; /* Reduced gap for smaller screens */
+  .cart-summary {
+      max-width: 100%;
   }
 }
 
