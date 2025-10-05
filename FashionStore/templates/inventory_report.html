@@ -1,86 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inventory Report | Fashion Store</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <style>
-    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding-bottom: 60px; }
-    header {
-      background: #333; color: #fff; text-align: center; padding: 15px 0;
-    }
-    nav a { color: #fff; margin: 0 12px; text-decoration: none; }
-    h1, h2 { text-align: center; margin-top: 20px; }
-    table {
-      width: 90%; margin: 25px auto; border-collapse: collapse;
-      background: #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-    th, td {
-      border: 1px solid #ddd; padding: 10px 12px; text-align: left;
-    }
-    th {
-      background: #444; color: #fff;
-    }
-    tr:nth-child(even) { background: #fafafa; }
-    .low-stock { color: red; font-weight: bold; }
-    .ok-stock { color: green; font-weight: bold; }
-    .total-row {
-      background: #e8fbe8; color: #196f3d; font-weight: bold;
-    }
-    footer {
-      position: fixed; bottom: 0; width: 100%;
-      background: #333; color: #fff; text-align: center;
-      padding: 8px 0; font-size: 0.9em;
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Report | Trendy Fashion Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* --- PROFESSIONAL PALETTE --- */
+        :root {
+            --primary: #2F3C7E; /* Deep Navy Blue */
+            --accent: #B8860B; /* Soft Gold */
+            --text-dark: #333333;
+            --bg-light: #f5f5f5;
+            --table-header: #444;
+            --low-stock-color: #dc3545; /* Red */
+            --ok-stock-color: #28a745; /* Green */
+            --total-row-bg: #e9ecef; /* Light Gray for Totals */
+            --total-row-text: var(--primary);
+        }
+
+        /* --- BASE LAYOUT & NO-SCROLL FIX --- */
+        body { 
+            font-family: 'Poppins', Arial, sans-serif; 
+            background: var(--bg-light); 
+            color: var(--text-dark);
+            margin: 0; 
+            padding-bottom: 60px; /* Space for fixed footer */
+        }
+        
+        header {
+            background: var(--primary); 
+            color: #fff; 
+            text-align: center; 
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        nav a { 
+            color: #fff; 
+            margin: 0 15px; 
+            text-decoration: none; 
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* --- HEADINGS & MAIN CONTENT --- */
+        h1, h2 { 
+            text-align: center; 
+            margin-top: 25px; 
+            color: var(--primary);
+            font-weight: 600;
+        }
+        main {
+            padding: 20px;
+        }
+
+        /* --- TABLE STYLING (PROFESSIONAL LOOK) --- */
+        .inventory-table-wrapper {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        table {
+            width: 100%; 
+            max-width: 1000px;
+            margin: 25px auto; 
+            border-collapse: separate; /* Use separate for border-radius on wrapper */
+            border-spacing: 0;
+            background: #fff; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden; /* Ensures box-shadow and border-radius work */
+            min-width: 600px; /* Ensures desktop view looks good */
+        }
+
+        th, td {
+            border: none;
+            padding: 14px 18px; 
+            text-align: left;
+            border-bottom: 1px solid #eee; /* Light horizontal line */
+            font-size: 0.95em;
+        }
+
+        th {
+            background: var(--table-header); 
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            position: sticky; /* Keep header visible when scrolling wrapper */
+            top: 0;
+        }
+
+        tr:nth-child(even) { background: #f9f9f9; }
+        tr:hover { background: #f0f8ff; }
+
+        /* Status Colors */
+        .low-stock { 
+            color: var(--low-stock-color); 
+            font-weight: 700; 
+            background-color: #fcecec;
+            border-radius: 4px;
+            padding: 2px 8px;
+            display: inline-block;
+        }
+        .ok-stock { 
+            color: var(--ok-stock-color); 
+            font-weight: 700; 
+        }
+
+        /* Total Row Styling */
+        .total-row {
+            background: var(--total-row-bg); 
+            color: var(--total-row-text); 
+            font-weight: bold;
+            border-top: 2px solid var(--primary);
+        }
+        .total-row td {
+            font-size: 1.1em;
+            padding: 15px 18px;
+            border-bottom: none;
+        }
+        .total-row td:nth-child(2) {
+            color: var(--accent); /* Highlight the total revenue figure */
+            font-size: 1.2em;
+        }
+        .total-row td:first-child { 
+            text-align: right; 
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            position: fixed; 
+            bottom: 0; 
+            width: 100%;
+            background: var(--primary); 
+            color: #fff; 
+            text-align: center;
+            padding: 8px 0; 
+            font-size: 0.85em;
+        }
+
+        /* --- RESPONSIVE TABLE FIX --- */
+        @media (max-width: 768px) {
+            table {
+                box-shadow: none;
+                border-radius: 0;
+                min-width: 100%;
+            }
+            
+            /* Stacked "Card" Layout for Mobile */
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            
+            /* Hide table headers (but not screen reader text) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            tr {
+                border: 1px solid #ddd;
+                margin-bottom: 15px;
+                background: #fff;
+                box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+                border-radius: 8px;
+            }
+            
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%; /* Make space for the pseudo-header */
+                text-align: right;
+            }
+            
+            /* Create the pseudo-header using the 'data-label' attribute */
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: 600;
+                color: var(--primary);
+            }
+
+            /* Fix Total Row for mobile stacking */
+            .total-row td:first-child { 
+                text-align: right !important; /* Override inline style */
+                font-size: 1em;
+                padding-left: 15px;
+                font-weight: 700;
+                color: var(--primary);
+            }
+            .total-row td:first-child:before {
+                 content: "Total Revenue:";
+            }
+            .total-row td:nth-child(2) {
+                padding-left: 50%; /* Maintain alignment */
+            }
+        }
+    </style>
 </head>
 
 <body>
 <header>
-  <h1>Inventory Report</h1>
-  <nav>
-    <a href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('index') }}#products">Shop</a>
-    <a href="{{ url_for('add_stock') }}">Add Stock ➕</a>
-    <a href="{{ url_for('inventory_report') }}">Inventory 📊</a>
-  </nav>
+    <h1>Inventory Report</h1>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('index') }}#products">Shop</a>
+        <a href="{{ url_for('add_stock') }}">Add Stock ➕</a>
+        <a href="{{ url_for('inventory_report') }}">Inventory 📊</a>
+    </nav>
 </header>
 
 <main>
-  <h2>Stock & Sales Overview</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Units Bought</th>
-        <th>Units Sold</th>
-        <th>In Stock</th>
-        <th>Revenue (KSh)</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% set ns = namespace(grand_revenue=0) %}
-      {% for item in metrics %}
-      <tr>
-        <td>{{ item.item_name }}</td>
-        <td>{{ item.qty_bought }}</td>
-        <td>{{ item.qty_sold }}</td>
-        <td class="{{ 'low-stock' if item.qty_stock < 5 else 'ok-stock' }}">{{ item.qty_stock }}</td>
-        <td>KSh {{ "{:,.2f}".format(item.revenue) }}</td>
-        {% set ns.grand_revenue = ns.grand_revenue + item.revenue %}
-      </tr>
-      {% endfor %}
-      <tr class="total-row">
-        <td colspan="4" style="text-align:right;">Total Revenue:</td>
-        <td>KSh {{ "{:,.2f}".format(ns.grand_revenue) }}</td>
-      </tr>
-    </tbody>
-  </table>
+    <h2>Stock & Sales Overview</h2>
+    <div class="inventory-table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Units Bought</th>
+                    <th>Units Sold</th>
+                    <th>In Stock</th>
+                    <th>Revenue (KSh)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set ns = namespace(grand_revenue=0) %}
+                {% for item in metrics %}
+                <tr>
+                    <td data-label="Item">{{ item.item_name }}</td>
+                    <td data-label="Units Bought">{{ item.qty_bought }}</td>
+                    <td data-label="Units Sold">{{ item.qty_sold }}</td>
+                    <td data-label="In Stock" class="{{ 'low-stock' if item.qty_stock < 5 else 'ok-stock' }}">
+                        {{ item.qty_stock }}
+                    </td>
+                    <td data-label="Revenue (KSh)">KSh {{ "{:,.2f}".format(item.revenue) }}</td>
+                    {% set ns.grand_revenue = ns.grand_revenue + item.revenue %}
+                </tr>
+                {% endfor %}
+                <tr class="total-row">
+                    <td colspan="4" style="text-align:right;">Total Revenue:</td>
+                    <td>KSh {{ "{:,.2f}".format(ns.grand_revenue) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </main>
 
 <footer>
-  <p>&copy; 2025 Fashion Store | Admin Dashboard</p>
+    <p>&copy; 2025 Fashion Store | Admin Dashboard</p>
 </footer>
 </body>
 </html>
