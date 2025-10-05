@@ -1,7 +1,7 @@
-/* 🌸 TRENDY FASHION HUB — MODERN RESPONSIVE ELEGANCE */
+/* 🌸 TRENDY FASHION HUB — FULLY RESPONSIVE FINAL STYLE */
 :root {
-  --primary: #6A1B9A;      /* Deep violet for elegance */
-  --accent: #8D6E63;       /* Muted brown for warmth */
+  --primary: #6A1B9A;
+  --accent: #8D6E63;
   --text: #333;
   --bg: #fff;
   --card: #fafafa;
@@ -10,7 +10,7 @@
   --shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* 🌍 GLOBAL RESET */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -28,9 +28,10 @@ body {
   line-height: 1.6;
   padding-bottom: 80px;
   overflow-x: hidden;
+  max-width: 100%;
 }
 
-/* 🟣 HEADER */
+/* HEADER */
 header {
   background: var(--primary);
   color: #fff;
@@ -56,7 +57,7 @@ nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 nav a {
@@ -74,14 +75,14 @@ nav a:hover {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* 📌 MAIN WRAPPER */
+/* MAIN */
 main {
   max-width: 1200px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 30px 20px;
 }
 
-/* 🗂 CATEGORY TABS */
+/* TABS */
 .tabs {
   display: flex;
   flex-wrap: wrap;
@@ -113,11 +114,12 @@ main {
   color: var(--accent);
 }
 
-/* 🛍 PRODUCT GRID */
+/* PRODUCT GRID */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 25px;
+  width: 100%;
 }
 
 .product-card {
@@ -136,7 +138,7 @@ main {
 
 .product-card img {
   width: 100%;
-  height: 260px;
+  height: 300px;  /* Increased for better visibility */
   object-fit: cover;
   border-radius: 8px;
   transition: transform 0.3s ease;
@@ -160,7 +162,7 @@ main {
   font-size: 0.95rem;
 }
 
-/* 🛒 BUTTONS */
+/* BUTTONS */
 .button {
   display: block;
   text-align: center;
@@ -181,7 +183,7 @@ main {
   transform: translateY(-2px);
 }
 
-/* 🪩 SALES TABLE */
+/* SALES TABLE */
 #sales {
   text-align: center;
   margin-top: 60px;
@@ -217,7 +219,7 @@ main {
   background: var(--highlight);
 }
 
-/* 🌿 BENEFITS SECTION */
+/* BENEFITS */
 #benefits {
   text-align: center;
   margin-top: 70px;
@@ -236,143 +238,110 @@ main {
   font-size: 0.95rem;
 }
 
-/* 🛒 CART PAGE */
-.cart-container {
+/* PRODUCT DETAILS PAGE */
+.product-detail-container {
   max-width: 1000px;
   margin: 40px auto;
-  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  background: var(--card);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow);
 }
 
-.cart-container h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 1.5rem;
-  font-weight: 600;
+.product-detail-container img {
+  flex: 1 1 350px;
+  max-width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.product-detail-info {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+}
+
+.product-detail-info h2 {
+  font-size: 1.6rem;
   color: var(--primary);
 }
 
-.cart-table {
+.product-detail-info p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.product-detail-info .price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.product-detail-info .button {
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+/* CART SECTION */
+.cart-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow);
   overflow-x: auto;
-}
-
-.cart-table table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  box-shadow: 0 4px 10px var(--shadow);
-  border-radius: 8px;
-}
-
-.cart-table th, .cart-table td {
-  padding: 12px 10px;
-  text-align: center;
-  border-bottom: 1px solid #eee;
-  vertical-align: middle;
-}
-
-.cart-table th {
-  background: var(--primary);
-  color: #fff;
-  font-size: 0.95rem;
-}
-
-.cart-table td img {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-right: 8px;
 }
 
 .cart-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  text-align: left;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
 }
 
-.qty-form {
+.cart-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
+  gap: 10px;
 }
 
-.qty-form input[type="number"] {
-  width: 55px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.btn-update, .btn-remove {
+.cart-item-actions button {
   background: var(--accent);
   color: #fff;
   border: none;
-  padding: 5px 8px;
-  border-radius: 4px;
+  padding: 6px 10px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 0.9rem;
   transition: background 0.3s;
 }
 
-.btn-update:hover, .btn-remove:hover {
+.cart-item-actions button:hover {
   background: var(--primary);
 }
 
-.btn-remove {
-  background: #e53935;
-}
-
-.low-stock {
-  color: #e53935;
-  font-size: 0.8rem;
-  display: block;
-  margin-top: 3px;
-}
-
-.checkout {
-  text-align: right;
-  margin-top: 20px;
-}
-
-.checkout-btn {
-  background: var(--primary);
-  color: #fff;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.checkout-btn:hover {
-  background: var(--accent);
-}
-
-.empty-cart {
-  text-align: center;
-  font-size: 1.1rem;
-  margin-top: 20px;
-}
-
-.empty-cart-link {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.empty-cart-link a {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.empty-cart-link a:hover {
-  text-decoration: underline;
-}
-
-/* ⚫ FOOTER */
+/* FOOTER */
 footer {
   background: var(--text);
   color: #fff;
@@ -382,10 +351,9 @@ footer {
   bottom: 0;
   width: 100%;
   font-size: 0.85rem;
-  letter-spacing: 0.3px;
 }
 
-/* 📱 RESPONSIVE */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
@@ -403,21 +371,30 @@ footer {
   }
 
   .product-card img {
-    height: 220px;
+    height: 240px;
   }
 
-  .sale-table th, .sale-table td {
-    font-size: 0.85rem;
-    padding: 10px;
+  .product-detail-container {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
   }
 
-  .benefits-list p {
-    font-size: 0.9rem;
+  .product-detail-info {
+    align-items: center;
   }
 
-  .cart-table td img {
-    width: 60px;
-    height: 60px;
+  .product-detail-info .button {
+    align-self: center;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cart-item img {
+    margin-bottom: 10px;
   }
 }
 
@@ -432,21 +409,6 @@ footer {
   }
 
   .product-card img {
-    height: 200px;
+    height: 210px;
   }
-}
-
-/* ✨ Small visual detail on hover */
-.product-card::after {
-  content: "✨";
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.1em;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.product-card:hover::after {
-  opacity: 1;
 }
