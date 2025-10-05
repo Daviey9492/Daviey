@@ -21,37 +21,46 @@
   <h2>Your Shopping Cart</h2>
 
   {% if cart_items %}
-  <div class="cart-table">
-    <table>
+  <div class="cart-table-wrapper">
+    <table class="cart-table-style">
       <thead>
         <tr>
-          <th>Item</th><th>Price</th><th>Qty</th><th>Total</th><th></th>
+          <th>Item</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         {% for item in cart_items %}
         <tr>
-          <td class="cart-item">
+          <td class="cart-item-detail" data-label="Item">
             <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.item_name }}">
-            <span>{{ item.item_name }}</span>
+            <div class="cart-item-info">
+                <span>{{ item.item_name }}</span>
+            </div>
           </td>
-          <td>KSh {{ "{:,.2f}".format(item.unit_price) }}</td>
-          <td>
+          <td data-label="Unit Price">KSh {{ "{:,.2f}".format(item.unit_price) }}</td>
+          <td data-label="Quantity">
             <form method="POST" action="{{ url_for('update_cart') }}" class="qty-form">
               <input type="hidden" name="item_id" value="{{ item.id }}">
-              <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.current_stock }}">
-              <button type="submit" class="btn-update">✔</button>
+              <div class="quantity-control">
+                  <button type="submit" name="action" value="decrease" class="qty-btn" aria-label="Decrease quantity">-</button>
+                  <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.current_stock }}" class="qty-input">
+                  <button type="submit" name="action" value="increase" class="qty-btn" aria-label="Increase quantity">+</button>
+              </div>
             </form>
             {% if 0 < item.current_stock < 5 %}
               <small class="low-stock">Low stock!</small>
             {% endif %}
           </td>
-          <td>KSh {{ "{:,.2f}".format(item.total) }}</td>
-          <td>
+          <td class="item-total" data-label="Subtotal">KSh {{ "{:,.2f}".format(item.total) }}</td>
+          <td data-label="Remove">
             <form method="POST" action="{{ url_for('update_cart') }}">
               <input type="hidden" name="item_id" value="{{ item.id }}">
               <input type="hidden" name="quantity" value="0">
-              <button type="submit" class="btn-remove">✖</button>
+              <button type="submit" class="remove-btn" aria-label="Remove item">✖</button>
             </form>
           </td>
         </tr>
@@ -60,10 +69,12 @@
     </table>
   </div>
 
-  <div class="checkout">
-    <p><strong>Total: KSh {{ "{:,.2f}".format(grand_total) }}</strong></p>
+  <div class="cart-summary">
+    <div><span>Subtotal:</span><span class="price-value">KSh {{ "{:,.2f}".format(grand_total) }}</span></div>
+    <div><span>Shipping:</span><span class="price-value">KSh 0.00</span></div>
+    <div class="grand-total"><span>Grand Total:</span><span class="price-value">KSh {{ "{:,.2f}".format(grand_total) }}</span></div>
     <form method="POST" action="{{ url_for('checkout') }}">
-      <button type="submit" class="checkout-btn">Proceed to Checkout</button>
+      <button type="submit" class="button checkout-btn">Proceed to Checkout</button>
     </form>
   </div>
 
