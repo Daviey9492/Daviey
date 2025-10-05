@@ -1,12 +1,14 @@
-/* 🌸 TRENDY FASHION HUB — FULLY RESPONSIVE FINAL STYLE */
+/* 🌸 CHIC MODERN FASHION HUB — FULLY RESPONSIVE FINAL STYLE */
 :root {
-  --primary: #6A1B9A;
-  --accent: #8D6E63;
-  --text: #333;
-  --bg: #fff;
-  --card: #fafafa;
-  --light: #f3f3f3;
-  --highlight: #e0f7fa;
+  /* 🎨 Chic Modern Palette */
+  --primary: #2F3C7E; /* Deep Navy Blue - Professional, trustworthy, and sophisticated. */
+  --primary-light: #5267a3; /* Lighter shade for hover effects */
+  --accent: #B8860B; /* Soft Gold/Dark Goldenrod - Luxurious, eye-catching for buttons and prices. */
+  --text: #333333; /* Dark Charcoal for high readability */
+  --bg: #ffffff; /* Crisp white background */
+  --card: #FBEAEB; /* Delicate Light Pink/Off-White for card backgrounds - Adds a subtle fashion touch. */
+  --light: #eeeeee; /* Light gray for subtle borders/separators */
+  --highlight: #E6E6FA; /* Soft Lavender for table/hover highlights */
   --shadow: rgba(0, 0, 0, 0.1);
 }
 
@@ -72,7 +74,7 @@ nav a {
 }
 
 nav a:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--primary-light); /* Use a lighter primary for a subtle hover */
 }
 
 /* MAIN */
@@ -100,6 +102,7 @@ main {
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
 }
 
 .tab-button:hover,
@@ -111,7 +114,7 @@ main {
 
 .tab-button.active::before {
   content: "• ";
-  color: var(--accent);
+  color: var(--accent); /* Accent dot for active tab */
 }
 
 /* PRODUCT GRID */
@@ -129,6 +132,7 @@ main {
   transition: all 0.3s ease;
   overflow: hidden;
   position: relative;
+  border: 1px solid var(--light); /* Subtle border for definition */
 }
 
 .product-card:hover {
@@ -138,9 +142,9 @@ main {
 
 .product-card img {
   width: 100%;
-  height: 300px;  /* Increased for better visibility */
+  height: 300px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px 10px 0 0; /* Only top corners match card */
   transition: transform 0.3s ease;
 }
 
@@ -153,34 +157,37 @@ main {
   margin: 10px 0 4px;
   text-align: center;
   font-weight: 600;
+  color: var(--primary); /* Use primary for titles */
 }
 
 .price {
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 700; /* Bolder price accent */
   text-align: center;
-  font-size: 0.95rem;
+  font-size: 1.1rem; /* Slightly larger price */
 }
 
 /* BUTTONS */
 .button {
   display: block;
   text-align: center;
-  margin: 12px auto;
+  margin: 15px auto; /* Increased margin for spacing */
   background: var(--accent);
   color: #fff;
-  padding: 8px 16px;
+  padding: 10px 20px; /* Slightly larger padding */
   border-radius: 6px;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95em;
+  font-weight: 600;
+  font-size: 1em;
   transition: background 0.3s, transform 0.2s;
   width: fit-content;
+  border: none; /* Ensure it looks like a clean CTA */
 }
 
 .button:hover {
   background: var(--primary);
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* SALES TABLE */
@@ -197,11 +204,12 @@ main {
   box-shadow: 0 4px 10px var(--shadow);
   overflow-x: auto;
   display: block;
+  border-radius: 8px; /* Rounded corners for the table container */
 }
 
 .sale-table th, .sale-table td {
   padding: 12px 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--light);
   text-align: left;
   font-size: 0.95rem;
 }
@@ -209,10 +217,11 @@ main {
 .sale-table th {
   background: var(--primary);
   color: #fff;
+  border-top: none;
 }
 
 .sale-table tr:nth-child(even) {
-  background: #fafafa;
+  background: #f8f8f8; /* Very subtle alternating row color */
 }
 
 .sale-table tr:hover {
@@ -227,18 +236,19 @@ main {
 }
 
 .benefits-list p {
-  background: #f1f8e9;
+  background: var(--highlight); /* Using highlight for benefit boxes */
   padding: 15px;
   margin: 15px auto;
   max-width: 800px;
-  border-left: 5px solid var(--primary);
+  border-left: 5px solid var(--accent); /* Accent color for the left border pop */
   border-radius: 6px;
   text-align: left;
   box-shadow: 0 2px 5px var(--shadow);
   font-size: 0.95rem;
+  color: var(--text);
 }
 
-/* PRODUCT DETAILS PAGE */
+/* PRODUCT DETAILS PAGE - Adjusted for "one page" fit */
 .product-detail-container {
   max-width: 1000px;
   margin: 40px auto;
@@ -246,45 +256,54 @@ main {
   flex-wrap: wrap;
   gap: 30px;
   background: var(--card);
-  padding: 25px;
+  padding: 30px; /* Increased padding */
   border-radius: 10px;
   box-shadow: 0 4px 15px var(--shadow);
+  /* Added max-height to encourage a compact view, but relies on content size */
+  max-height: 85vh; 
+  overflow-y: auto; /* Scroll only the container if content is too tall */
 }
 
 .product-detail-container img {
   flex: 1 1 350px;
   max-width: 400px;
-  height: 400px;
+  height: auto; /* Changed from fixed 400px to auto for better content fit */
+  max-height: 400px; /* Set a max-height instead */
   object-fit: cover;
   border-radius: 10px;
+  box-shadow: 0 4px 8px var(--shadow);
 }
 
 .product-detail-info {
   flex: 1 1 400px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Align content to the top */
   gap: 15px;
+  padding-top: 10px; /* Small top padding for alignment with image */
 }
 
 .product-detail-info h2 {
-  font-size: 1.6rem;
+  font-size: clamp(1.6rem, 2.5vw, 2rem); /* Responsive font size */
   color: var(--primary);
+  margin-bottom: 5px;
 }
 
 .product-detail-info p {
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .product-detail-info .price {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.8rem; /* Larger price for impact */
+  font-weight: 700;
   color: var(--accent);
+  margin-top: 5px;
+  text-align: left; /* Align price with info text */
 }
 
 .product-detail-info .button {
-  margin-top: 10px;
+  margin: 15px 0 0 0; /* Removed auto margins for left alignment */
   align-self: flex-start;
 }
 
@@ -305,7 +324,7 @@ main {
   justify-content: space-between;
   gap: 15px;
   padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--light); /* Use light variable */
   flex-wrap: wrap;
 }
 
@@ -318,6 +337,7 @@ main {
 
 .cart-item-info {
   flex: 1;
+  min-width: 150px; /* Ensure name has enough space */
 }
 
 .cart-item-actions {
@@ -343,7 +363,7 @@ main {
 
 /* FOOTER */
 footer {
-  background: var(--text);
+  background: var(--primary); /* Changed to primary color for better brand consistency */
   color: #fff;
   text-align: center;
   padding: 12px 0;
@@ -373,19 +393,33 @@ footer {
   .product-card img {
     height: 240px;
   }
-
+  
+  /* Stacking details vertically for smaller screens */
   .product-detail-container {
     flex-direction: column;
     text-align: center;
     align-items: center;
+    max-height: none; /* Allow full height on mobile */
+    overflow-y: visible;
+  }
+
+  .product-detail-container img {
+      max-width: 100%;
+      height: 300px;
   }
 
   .product-detail-info {
     align-items: center;
+    text-align: center;
+  }
+  
+  .product-detail-info .price {
+      text-align: center; /* Center price on mobile */
   }
 
   .product-detail-info .button {
     align-self: center;
+    margin-top: 15px;
   }
 
   .cart-item {
